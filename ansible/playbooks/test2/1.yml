@@ -1,0 +1,49 @@
+---
+- name: ping
+  hosts: web
+  #become: yes
+  gather_facts: yes
+  tasks:
+#Создаем пользователей по списку test_user
+  - name: Add the user 'johnd' with a specific uid and a primary group of 'admin'
+    ansible.builtin.user:
+      name: "{{item}}"
+    loop: "{{ test_user }}"
+  - name: register date
+    shell: date +'%d-%m-%Y'
+    register: date_for_file
+
+#Запускаем комманды whoami uptime hostname
+#Запускаем ее от имени пользовалей из списке test_user
+#Вывод записываем в файл с имененм user_name+date
+  - name: Run a command as nobody
+    shell: |
+      whoami > /tmp/{{ item }}-{{date_for_file.stdout }}
+      uptime >>/tmp/{{ item }}-{{date_for_file.stdout }}
+      hostname >>/tmp/{{ item }}-{{date_for_file.stdout }}
+
+    become: true
+    become_method: su
+    become_user: '{{ item}}'
+    loop: "{{ test_user }}"
+
+#Разрешаем пользователям sudo кроме su
+#Правила записываем в файл /etc/sudoers.d/99-custom
+  - name: Ensure sudoers file exists
+    template:
+      src: '../../templates/sudoers.j2'
+      dest: "/etc/sudoers.d/99-custom"
+      validate: visudo -cf %s
+
+#Обновляем пароль для списка
+  - name: updatepassword
+    ansible.builtin.user:
+      name: "{{item}}"
+      password: 'Password123!'
+    loop: "{{ test_user }}"
+#Разрешаем списку пользователей + ansible вход
+#чтобы не откусить себе голову :)
+  - lineinfile:
+      path: /etc/ssh/sshd_config
+      line: 'AllowUsers ansible {{ test_user |join (" ")}}'
+  

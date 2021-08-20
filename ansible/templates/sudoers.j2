@@ -1,0 +1,4 @@
+##Limit the users  to run any command , except for sudo su to root
+{% for user in test_user %}
+{{ user }} ALL = ALL, !/bin/su
+{% endfor %}

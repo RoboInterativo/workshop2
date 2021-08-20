@@ -1,0 +1,14 @@
+---
+
+- name: Test gather_facts
+  hosts: web
+  #become: yes
+  gather_facts: yes
+  tasks:
+  - name: Collect facts
+    setup:
+
+  - name: Output all facts on host
+    debug:
+      var: hostvars[inventory_hostname]
+      #.ansible_devices.keys() | list

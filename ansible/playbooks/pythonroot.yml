@@ -1,0 +1,94 @@
+---
+- name: Install
+  hosts: all
+  #become: yes
+  gather_facts: yes
+  tasks:
+  - name: Install
+    apt:
+      name: '{{ item }}'
+    with_items:
+      - python3-pip
+      - virtualenv
+
+  - name: Delete Js
+    file:
+      path: '{{ WORKSPACE }}/code/back2/static/maim.js'
+
+  - name: copy Js
+    file:
+      src: '{{ WORKSPACE }}/code/front2/static/maim.js'
+      dest: '{{ WORKSPACE }}/code/front2/static/maim.js'
+      remote_src: yes
+
+#  - name: Создание из шаблона службы systemd
+#  - name: Запуск systemd reload можно через hanlder
+
+
+  - name: Update pip
+    shell:  'pip3 install pip -U'
+
+  - name: pip install
+    pip:
+      name:
+      requirements: /var/lib/jenkins/workspace/test_ansible/code/back2/req.txt
+      virtualenv: /var/lib/jenkins/workspace/test_ansible/code/back2
+      virtualenv_python: python3
+#      sh: gunicorn3 my_app_module:my_web_app --bind 0.0.0.0:8888 --worker-class aiohttp.GunicornWebWorker
+
+
+  - name: install nginx
+    apt:
+      name: nginx
+
+#Тут перепиши название шаблона шаблон должен лежать в папке ansible/templates
+# - name: Create service service
+#   template:
+#     src: service.j2
+#     dest: '/etc/systemd/system/sonar.service'
+#     mode: 0644
+
+  # создали gunicorn.service   gunicorn.socket
+#    sh: cd/etc/systemd/system
+#    sh: sudo systemctl start gunicorn
+
+#  - name: Запуск systemd reload можно через hanlder
+
+  # - Тут верно
+  # - name: Just force systemd to reread configs (2.4 and above)
+  #   systemd:
+  #     daemon_reload: yes
+  #
+  #  Тут все верно
+  # - name: Enable a timer unit for dnf-automatic
+  #   systemd:
+  #     name: gunicorn.service
+  #     state: started
+#    remote_src: yes
+#  roles:
+#    - name: Install consul agents
+#      role: nodejs
+
+  # tasks:
+  # - name: nginx-docker
+  #   debug:
+  #     msg: 'Hello'  # - name: Get OS type
+  #   debug:
+  #     var: ansible_facts.distribution
+  # - name: Update repositories cache and install  package
+  #   apt:
+  #     name: '{{ item }}'
+  #     update_cache: yes
+  #   with_items: '{{ package_list }}'
+  #
+  # - name: Create Dir
+  #   file:
+  #     path: '~/ansible'
+  #     state: directory
+
+
+#    when: ansible_facts.distribution=='Ubuntu'
+  # - name: Print all available facts
+  #   ansible.builtin.debug:
+
+  #     var: ansible_facts

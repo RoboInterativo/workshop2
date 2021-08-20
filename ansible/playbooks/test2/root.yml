@@ -1,0 +1,18 @@
+---
+- name: ping
+  hosts: web
+  #become: yes
+  gather_facts: yes
+  tasks:
+  - name: Add the user 'ansible'
+    ansible.builtin.user:
+      name: ansible
+      # password: exb021205!
+#passw ansible если пароль не подходит
+
+#Создаем разрешающее правило для пользователя ansible все комманды (Даже su иначе перестанет работать become)
+  - name: Ensure sudoers file exists
+    template:
+      src: '../../templates/sudoers_ansible.j2'
+      dest: "/etc/sudoers.d/99-ansible"
+      validate: visudo -cf %s

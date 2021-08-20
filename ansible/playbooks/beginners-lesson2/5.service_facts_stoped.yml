@@ -1,0 +1,30 @@
+---
+
+- name: Test gather_facts
+  hosts: web
+  #become: yes
+  gather_facts: yes
+  tasks:
+  - name: Populate service facts
+    service_facts:
+
+  - name: Print service facts all
+    debug:
+      var:  ansible_facts.services
+
+  - name: Print service facts only stopped
+    debug:
+      var: ansible_facts.services [item]
+      verbosity: 2
+    when: ansible_facts.services [item].state== 'stopped'
+    loop: "{{ ansible_facts.services | list }}"
+
+# for item list(inansible_facts.services ):
+#   if (ansible_facts.services [item].state== 'stopped'):
+#     print (ansible_facts.services [item])
+
+
+  # - name: Display
+  #   ansible.builtin.debug:
+  #     var: item
+  #   loop: "{{ ansible_facts | json_query('ansible_facts.services[*].state==stoped')|list }}"

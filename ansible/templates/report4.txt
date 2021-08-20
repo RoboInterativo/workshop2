@@ -1,0 +1,4 @@
+
+{{ rezult_whoami[0].stdout }}
+{{ rezult_uptime[0].stdout }}
+{{ hostname[0].stdout }}

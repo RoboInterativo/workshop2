@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+       parameters {
+               string(
+          			name: 'CODE_REPO',
+          			defaultValue: 'git@github.com:RoboInterativo/back-front-example.git',
+          			description: 'CODE_REPO'
+		            )
+		 string(
+			name: 'BRANCH',
+			defaultValue: 'main',
+			description: 'BRANCH'
+		)
+
+
+    }
+
+
+
+    stages {
+        stage('Stage 1') {
+            steps {
+
+
+                           //${WORKSPACE}
+                         checkout([$class: 'GitSCM', branches: [[name: "master"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory',
+                         relativeTargetDir: 'ci/']], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cred',
+                         url: ""]]])
+                         sh "pwd && ls -li ci"
+
+
+                         DEPLOY_TYPE = 'BUILDONOPENSHIFT4'
+
+                         ansiblePlaybook extras: "-vv --extra-vars \"inventory_dir=\"${WORKSPACE}/c/ansible/inventories/dev/\"\" ",
+                         installation: 'ansible29',
+                         inventory: "ci/ansible/inventories/dev/inventory",
+                         playbook: "ci/ansible/playbooks/test.yml"
+            }
+        }
+        stage('Stage 2') {
+            steps {
+            }
+          }
+    }
+    post {
+        success {
+
+            archiveArtifacts allowEmptyArchive: true, artifacts: 'code//dist/*.zip', fingerprint: true
+
+        }
+      }
+}

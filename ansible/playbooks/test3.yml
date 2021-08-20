@@ -1,0 +1,28 @@
+---
+- name: Install
+  hosts: python-app
+  #become: yes
+  gather_facts: yes
+  tasks:
+  - name: nginx-docker
+    debug:
+      msg: 'Hello'
+  # - name: Get OS type
+  #   debug:
+  #     var: ansible_facts.distribution
+  # - name: Update repositories cache and install  package
+  #   apt:
+  #     name: '{{ item }}'
+  #     update_cache: yes
+  #   with_items: '{{ package_list }}'
+  #
+  # - name: Create Dir
+  #   file:
+  #     path: '~/ansible'
+  #     state: directory
+
+
+#    when: ansible_facts.distribution=='Ubuntu'
+  # - name: Print all available facts
+  #   ansible.builtin.debug:
+  #     var: ansible_facts
