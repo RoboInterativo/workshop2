@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+       parameters {
+               string(
+          			name: 'CODE_REPO',
+          			defaultValue: 'https://github.com/RoboInterativo/simple-back-front.git',
+          			description: 'CODE_REPO'
+		            )
+		 string(
+			name: 'BRANCH',
+			defaultValue: 'main',
+			description: 'BRANCH'
+		)
+
+
+    }
+
+
+
+    stages {
+        stage('Stage 1') {
+            steps {
+              withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
+                  
+              }
+
+                           //${WORKSPACE}
+                        //  checkout([$class: 'GitSCM', branches: [[name: "master"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory',
+                        //  relativeTargetDir: 'ci/']], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cred',
+                        //  url: ""]]])
+                         // sh "pwd && ls -li "
+                         // sh "rm * -rf "
+                         // sh 'wget https://nodejs.org/dist/v14.17.6/node-v14.17.6-linux-x64.tar.xz'
+                         // sh 'tar xvf node-v14.17.6-linux-x64.tar.xz'
+                         // sh 'echo export PATH=$PATH:/var/lib/jenkins/workspace/test/node-v14.17.6-linux-x64/bin >> env'
+                         // sh '. ./env && node --version'
+                         // sh 'echo ${CODE_REPO}'
+                         // sh 'git clone ${CODE_REPO}'
+                         //    sh "export CI=false && . ./env && node --version && cd simple-back-front && cd front && npm install -f && npm run build"
+                         //    sh "cd ${WORKSPACE}/simple-back-front/front/ && zip build.zip build -r"
+
+                         //DEPLOY_TYPE = 'BUILDONOPENSHIFT4'
+
+                        //  ansiblePlaybook extras: "-vv --extra-vars \"inventory_dir=\"${WORKSPACE}/c/ansible/inventories/dev/\"\" ",
+                        //  installation: 'ansible29',
+                        //  inventory: "ci/ansible/inventories/dev/inventory",
+                        //  playbook: "ci/ansible/playbooks/test.yml"
+            }
+        }
+
+    }
+    post {
+        success {
+
+            archiveArtifacts allowEmptyArchive: true, artifacts: '${WORKSPACE}/simple-back-front/front/*.zip', fingerprint: true
+
+        }
+      }
+}

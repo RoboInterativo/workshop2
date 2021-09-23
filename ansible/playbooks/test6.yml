@@ -1,0 +1,8 @@
+---
+- name: Install
+  hosts: all
+  #become: yes
+  gather_facts: yes
+  roles:
+    - name: Install consul agents
+      role: clo
