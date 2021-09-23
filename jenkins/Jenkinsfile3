@@ -19,6 +19,7 @@ pipeline {
 
     stages {
         stage('Stage 1') {
+          script {
             checkout([$class: 'GitSCM', branches: [[name: "main"]],
             doGenerateSubmoduleConfigurations: false,
             extensions: [[$class: 'RelativeTargetDirectory',
@@ -37,6 +38,7 @@ pipeline {
 
 
               }
+            }
 
                            //${WORKSPACE}
                         //  checkout([$class: 'GitSCM', branches: [[name: "master"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory',
