@@ -19,15 +19,13 @@ pipeline {
 
     stages {
         stage('Stage 1') {
-          script {
-            checkout([$class: 'GitSCM', branches: [[name: "main"]],
-            doGenerateSubmoduleConfigurations: false,
-            extensions: [[$class: 'RelativeTargetDirectory',
-            relativeTargetDir: 'ci/']], gitTool: 'Default',
-            submoduleCfg: [],
-            userRemoteConfigs: [[credentialsId: 'jenkins',    url: ""]]])
-
             steps {
+              checkout([$class: 'GitSCM', branches: [[name: "main"]],
+              doGenerateSubmoduleConfigurations: false,
+              extensions: [[$class: 'RelativeTargetDirectory',
+              relativeTargetDir: 'ci/']], gitTool: 'Default',
+              submoduleCfg: [],
+              userRemoteConfigs: [[credentialsId: 'jenkins',    url: ""]]])
               withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
                 dir ('ci/ansible') {
                   ansiblePlaybook extras: "-vv --extra-vars \"inventory_dir=\"${WORKSPACE}/c/ansible/inventories/dev/\"\" ",
@@ -38,7 +36,7 @@ pipeline {
 
 
               }
-            }
+
 
                            //${WORKSPACE}
                         //  checkout([$class: 'GitSCM', branches: [[name: "master"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory',
