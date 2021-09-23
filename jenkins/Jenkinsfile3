@@ -19,9 +19,23 @@ pipeline {
 
     stages {
         stage('Stage 1') {
+            checkout([$class: 'GitSCM', branches: [[name: "main"]],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [[$class: 'RelativeTargetDirectory',
+            relativeTargetDir: 'ci/']], gitTool: 'Default',
+            submoduleCfg: [],
+            userRemoteConfigs: [[credentialsId: 'jenkins',    url: ""]]])
+
             steps {
               withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
-                  
+                dir ('ci/ansible') {
+                  ansiblePlaybook extras: "-vv --extra-vars \"inventory_dir=\"${WORKSPACE}/c/ansible/inventories/dev/\"\" ",
+                  installation: 'ansible29',
+                  inventory: "ci/ansible/inventories/dev/inventory",
+                  playbook: "ci/ansible/playbooks/test6.yml"
+                }
+
+
               }
 
                            //${WORKSPACE}
