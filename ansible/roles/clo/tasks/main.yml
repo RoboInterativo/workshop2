@@ -93,7 +93,7 @@
 
 - name: Debug3
   debug:
-    var: "{{server_id}}"
+    var: server_id 
 
 # - name: Debug3
 #   debug:
