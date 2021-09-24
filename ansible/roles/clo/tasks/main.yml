@@ -10,6 +10,12 @@
     headers:
       Content-Type: 'application/json'
       Authorization: 'Bearer {{ token }}'
+  register: rez
+
+- name: Debug
+  debug:
+    var: rez
+
 # URL = "https://api.clo.ru/v1/projects"
 #
 # HEADERS = {'Content-Type': 'application/json', 'Authorization': 'Bearer b7d03a6947b217efb6f3ec3bd3504582'}
