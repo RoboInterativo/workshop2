@@ -20,6 +20,7 @@ pipeline {
     stages {
         stage('Stage 1') {
             steps {
+              script {
               def git_cred='2c259981-11c3-4202-bfb4-294515794d21'
               def git_url='"git@github.com:RoboInterativo/workshop2.git'
 
@@ -40,6 +41,7 @@ pipeline {
 
 
               }
+            }
 
 
                            //${WORKSPACE}
