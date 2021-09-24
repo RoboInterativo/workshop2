@@ -32,11 +32,13 @@
 - name: SERVER
   uri:
     url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
+    status_code: 201
     method: POST
     headers:
       Content-Type: 'application/json'
       Authorization: 'Bearer {{ token }}'
     body_format: json
+
     body:
       name: "test"
       flavor:

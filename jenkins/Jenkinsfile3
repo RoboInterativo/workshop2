@@ -39,7 +39,7 @@ pipeline {
                   inventory: "inventories/dev/inventory",
                   playbook: "playbooks/test6.yml"
                 }
-
+                notifyEvents message: 'Hello <b>world</b>', token: '1918704338:AAEVzdGBQhGQ2BIQ_CvXcuVtkqMocilCYiI'
 
               }
             }
