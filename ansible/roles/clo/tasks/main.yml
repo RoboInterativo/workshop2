@@ -93,15 +93,15 @@
 
 - name: Debug3
   debug:
-    var: "server_id"
+    var: "{{server_id}}"
 
-- name: Debug3
-  debug:
-    var: rez3
+# - name: Debug3
+#   debug:
+#     var: rez3
 
-- name: set fact
-  set_fact:
-    server_id: '{{ rez3.json.result.id }}'
+# - name: set fact
+#   set_fact:
+#     server_id: '{{ rez3.json.result.id }}'
 
 - name: Debug3
   debug:
