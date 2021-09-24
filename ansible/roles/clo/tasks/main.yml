@@ -37,54 +37,54 @@
     project_id: '{{ rez2.id }}'
     image_id: "e3a5be78-dbff-410d-952b-64c13f11844e"
 #
-- name: SERVER keys
-  uri:
-    url: 'https://api.clo.ru/v1/keypairs '
-    status_code: 201
-    method: POST
-    headers:
-      Content-Type: 'application/json'
-      Authorization: 'Bearer {{ token }}'
-    body_format: json
-    body:
-        name: jenkins
-        public_key: '{{ pub_key.stdout }}'
-  register: rez4
-
-- name: Debug4
-  debug:
-    var: rez4
-
-
-
-
-#
-# - name: SERVER
+# - name: SERVER keys
 #   uri:
-#     url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
+#     url: 'https://api.clo.ru/v1/keypairs '
 #     status_code: 201
 #     method: POST
 #     headers:
 #       Content-Type: 'application/json'
 #       Authorization: 'Bearer {{ token }}'
 #     body_format: json
-#
 #     body:
-#       name: "test"
-#       flavor:
-#             ram: 2
-#             vcpus: 1
-#       image: "{{image_id}}"
+#         name: jenkins
+#         public_key: '{{ pub_key.stdout }}'
+#   register: rez4
 #
-#       addresses:
-#         -  {"version": 4, "external": True}
-#       storages:
-#         - { "size": 10, "bootable": True,        "storage_type": "local"  }
-#   register: rez3
-#
-# - name: Debug3
+# - name: Debug4
 #   debug:
-#     var: rez3
+#     var: rez4
+
+
+
+
+#
+- name: SERVER
+  uri:
+    url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
+    status_code: 201
+    method: POST
+    headers:
+      Content-Type: 'application/json'
+      Authorization: 'Bearer {{ token }}'
+    body_format: json
+
+    body:
+      name: "test"
+      flavor:
+            ram: 2
+            vcpus: 1
+      image: "{{image_id}}"
+
+      addresses:
+        -  {"version": 4, "external": True}
+      storages:
+        - { "size": 10, "bootable": True,        "storage_type": "local"  }
+  register: rez3
+
+- name: Debug3
+  debug:
+    var: rez3
 
 # URL = "https://api.clo.ru/v1/projects"
 #
