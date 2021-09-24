@@ -47,7 +47,7 @@
       Authorization: 'Bearer {{ token }}'
     body_format: json
     body:
-      - name: jenkins
+        name: jenkins
         public_key: '{{ pub_key.stdout }}'
   register: rez4
 
