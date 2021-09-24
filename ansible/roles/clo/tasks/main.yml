@@ -93,7 +93,7 @@
 
 - name: Debug3
   debug:
-    var: server_id 
+    var: server_id
 
 # - name: Debug3
 #   debug:
@@ -103,9 +103,7 @@
 #   set_fact:
 #     server_id: '{{ rez3.json.result.id }}'
 
-- name: Debug3
-  debug:
-    var: server_id
+
 
 - name: SERVER
   uri:
