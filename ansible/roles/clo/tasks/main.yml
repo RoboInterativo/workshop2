@@ -24,6 +24,38 @@
   debug:
     var: rez2
 
+- name: set fact
+  set_fact:
+    project_id: '{{ rez.id }}'
+    image_id: e3a5be78-dbff-410d-952b-64c13f11844e
+- name: SERVER
+  uri:
+    url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
+    method: POST
+    headers:
+      Content-Type: 'application/json'
+      Authorization: 'Bearer {{ token }}'
+    body_format: json
+    body:
+      name: your_username
+      password: your_password
+      enter: Sign in
+
+      name: "test",
+      flavor:
+            ram: 1,
+            vcpus: 1,
+      image: "{{image_id}}",
+      addresses:
+        -  {"version": 4, "external": True}
+        - storages:
+        - { "size": 10, "bootable": True,        "storage_type": "local"  }
+  register: rez3
+
+- name: Debug3
+  debug:
+    var: rez3
+
 # URL = "https://api.clo.ru/v1/projects"
 #
 # HEADERS = {'Content-Type': 'application/json', 'Authorization': 'Bearer b7d03a6947b217efb6f3ec3bd3504582'}
