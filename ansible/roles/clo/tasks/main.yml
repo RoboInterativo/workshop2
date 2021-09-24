@@ -39,7 +39,7 @@
 #
 - name: SERVER keys
   uri:
-    url: 'https://api.clo.ru/v1/projects/v1/keypairs '
+    url: 'https://api.clo.ru/v1/keypairs '
     status_code: 201
     method: POST
     headers:
@@ -47,8 +47,8 @@
       Authorization: 'Bearer {{ token }}'
     body_format: json
     body:
-      name: jenkins
-      public_key: '{{ pub_key.stdout }}'
+      - name: jenkins
+        public_key: '{{ pub_key.stdout }}'
   register: rez4
 
 - name: Debug4
