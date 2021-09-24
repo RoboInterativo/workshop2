@@ -53,7 +53,7 @@
 #
 # - name: Debug4
 #   debug:
-#     var: rez4
+#     var: rez4ansiblePlaybook extras: "-vv --extra-vars \"t
 
 
 
@@ -85,6 +85,12 @@
 - name: Debug3
   debug:
     var: rez3
+
+- name: Debug3
+  debug:
+    var: "{{ rez3.json.result.id }}"
+    
+    #783b5f29-ba6f-4cce-a80e-6aa239a22f28
 
 # URL = "https://api.clo.ru/v1/projects"
 #
