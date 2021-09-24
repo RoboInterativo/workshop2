@@ -40,7 +40,7 @@
     body:
       name: "test"
       flavor:
-            ram: 1
+            ram: 2
             vcpus: 1
       image: "{{image_id}}"
 
