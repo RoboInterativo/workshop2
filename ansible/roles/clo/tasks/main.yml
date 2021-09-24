@@ -2,3 +2,20 @@
 - name: Debug
   debug:
     msg: Hello
+
+- name: GET PROJECTD
+  uri:
+    url: https://api.clo.ru/v1/projects
+    method: GET
+    headers:
+      - 'Content-Type': 'application/json'
+      - 'Authorization': 'Bearer {{ token }}'
+# URL = "https://api.clo.ru/v1/projects"
+#
+# HEADERS = {'Content-Type': 'application/json', 'Authorization': 'Bearer b7d03a6947b217efb6f3ec3bd3504582'}
+#
+# # sending get request and saving the response as response object
+# r
+#
+# Authorization: Bearer <JWT>
+# /v1/projects/{project_id}/servers

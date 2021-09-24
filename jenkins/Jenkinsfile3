@@ -33,7 +33,7 @@ pipeline {
 
               withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
                 dir ('ci/ansible') {
-                  ansiblePlaybook extras: "-vv --extra-vars \"inventory_dir=\"inventories/dev/\"\" ",
+                  ansiblePlaybook extras: "-vv --extra-vars \"token= ${clo} inventory_dir=\"inventories/dev/\"\" ",
                   installation: 'ansible29',
                   inventory: "inventories/dev/inventory",
                   playbook: "playbooks/test6.yml"
