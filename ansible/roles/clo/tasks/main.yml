@@ -2,59 +2,67 @@
 - name: Debug
   debug:
     msg: Hello
-
-- name: GET PROJECTD
-  uri:
-    url: https://api.clo.ru/v1/projects
-    method: GET
-    headers:
-      Content-Type: 'application/json'
-      Authorization: 'Bearer {{ token }}'
-  register: rez
+- name: shell
+  shell: cat /home/jenkins/.ssh/id_rsa.pub
+  register: pub_key
+  #cat /home/jenkins/.ssh/authorized_keys
 
 - name: Debug
   debug:
-    var: rez
+    var: pub_key
 
-- name: set fact
-  set_fact:
-    rez2: '{{ rez.json.results |first }}'
-
-- name: Debug2
-  debug:
-    var: rez2
-
-- name: set fact
-  set_fact:
-    project_id: '{{ rez2.id }}'
-    image_id: "e3a5be78-dbff-410d-952b-64c13f11844e"
-
-- name: SERVER
-  uri:
-    url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
-    status_code: 201
-    method: POST
-    headers:
-      Content-Type: 'application/json'
-      Authorization: 'Bearer {{ token }}'
-    body_format: json
-
-    body:
-      name: "test"
-      flavor:
-            ram: 2
-            vcpus: 1
-      image: "{{image_id}}"
-
-      addresses:
-        -  {"version": 4, "external": True}
-      storages:
-        - { "size": 10, "bootable": True,        "storage_type": "local"  }
-  register: rez3
-
-- name: Debug3
-  debug:
-    var: rez3
+# - name: GET PROJECTD
+#   uri:
+#     url: https://api.clo.ru/v1/projects
+#     method: GET
+#     headers:
+#       Content-Type: 'application/json'
+#       Authorization: 'Bearer {{ token }}'
+#   register: rez
+#
+# - name: Debug
+#   debug:
+#     var: rez
+#
+# - name: set fact
+#   set_fact:
+#     rez2: '{{ rez.json.results |first }}'
+#
+# - name: Debug2
+#   debug:
+#     var: rez2
+#
+# - name: set fact
+#   set_fact:
+#     project_id: '{{ rez2.id }}'
+#     image_id: "e3a5be78-dbff-410d-952b-64c13f11844e"
+#
+# - name: SERVER
+#   uri:
+#     url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
+#     status_code: 201
+#     method: POST
+#     headers:
+#       Content-Type: 'application/json'
+#       Authorization: 'Bearer {{ token }}'
+#     body_format: json
+#
+#     body:
+#       name: "test"
+#       flavor:
+#             ram: 2
+#             vcpus: 1
+#       image: "{{image_id}}"
+#
+#       addresses:
+#         -  {"version": 4, "external": True}
+#       storages:
+#         - { "size": 10, "bootable": True,        "storage_type": "local"  }
+#   register: rez3
+#
+# - name: Debug3
+#   debug:
+#     var: rez3
 
 # URL = "https://api.clo.ru/v1/projects"
 #
