@@ -8,7 +8,8 @@
     url: https://api.clo.ru/v1/projects
     method: GET
     headers:
-      - {'Content-Type': 'application/json',    'Authorization': 'Bearer {{ token }}' }
+      Content-Type: 'application/json'
+      Authorization: 'Bearer {{ token }}'
 # URL = "https://api.clo.ru/v1/projects"
 #
 # HEADERS = {'Content-Type': 'application/json', 'Authorization': 'Bearer b7d03a6947b217efb6f3ec3bd3504582'}
