@@ -27,7 +27,8 @@
 - name: set fact
   set_fact:
     project_id: '{{ rez.id }}'
-    image_id: e3a5be78-dbff-410d-952b-64c13f11844e
+    image_id: "e3a5be78-dbff-410d-952b-64c13f11844e"
+    
 - name: SERVER
   uri:
     url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
