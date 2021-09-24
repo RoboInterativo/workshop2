@@ -16,6 +16,14 @@
   debug:
     var: rez
 
+- name: set fact
+  set_fact:
+    rez2: '{{ rez.json.results |first }}'
+
+- name: Debug2
+  debug:
+    var: rez2
+
 # URL = "https://api.clo.ru/v1/projects"
 #
 # HEADERS = {'Content-Type': 'application/json', 'Authorization': 'Bearer b7d03a6947b217efb6f3ec3bd3504582'}
