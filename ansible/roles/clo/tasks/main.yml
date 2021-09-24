@@ -49,7 +49,7 @@
       image: "{{image_id}}"
       addresses:
         -  {"version": 4, "external": True}
-        - storages:
+      storages:
         - { "size": 10, "bootable": True,        "storage_type": "local"  }
   register: rez3
 
