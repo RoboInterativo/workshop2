@@ -41,11 +41,11 @@
       password: your_password
       enter: Sign in
 
-      name: "test",
+      name: "test"
       flavor:
-            ram: 1,
-            vcpus: 1,
-      image: "{{image_id}}",
+            ram: 1
+            vcpus: 1
+      image: "{{image_id}}"
       addresses:
         -  {"version": 4, "external": True}
         - storages:
