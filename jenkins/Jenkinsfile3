@@ -20,13 +20,15 @@ pipeline {
     stages {
         stage('Stage 1') {
             steps {
-              
+              def git_cred='2c259981-11c3-4202-bfb4-294515794d21'
+              def git_url='"git@github.com:RoboInterativo/workshop2.git'
+
               checkout([$class: 'GitSCM', branches: [[name: "main"]],
               doGenerateSubmoduleConfigurations: false,
               extensions: [[$class: 'RelativeTargetDirectory',
               relativeTargetDir: 'ci/']], gitTool: 'Default',
               submoduleCfg: [],
-              userRemoteConfigs: [[credentialsId: 'jenkins',    url: "git@github.com:RoboInterativo/workshop2.git"]]])
+              userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
 
               withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
                 dir ('ci/ansible') {
