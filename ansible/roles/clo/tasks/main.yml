@@ -131,7 +131,7 @@
 - name: SERVER keys
   uri:
     url: 'https://api.clo.ru/v1/servers/{{ server_id }}/password'
-    status_code: 201
+    status_code: 202
     method: POST
     headers:
       Content-Type: 'application/json'
