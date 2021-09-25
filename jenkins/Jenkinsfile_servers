@@ -5,7 +5,7 @@ def getServers (TOKEN) {
       def endpoint = CLO_URL + "v1/projects"
       def response = httpRequest contentType: 'APPLICATION_JSON' , customHeaders: [[name: 'Authorization',
           value: TOKEN]] endpoint
-
+    println response.content
     //   def endpoint = CLO_URL + "v1/projects"
     //   def conn = new URL(endpoint).openConnection()
     // //  'Bearer {{ token }}
