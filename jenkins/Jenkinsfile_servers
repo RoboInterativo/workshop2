@@ -3,7 +3,8 @@ def getServers () {
       def CLO_URL="https://api.clo.ru/"
       def AUTH= credentials('clo')
       def endpoint = CLO_URL + "v1/projects"
-      def response = httpRequest contentType: 'APPLICATION_JSON' customHeaders: [[name: 'Authorization', value: AUTH]] endpoint
+      def response = httpRequest contentType: 'APPLICATION_JSON' , customHeaders: [[name: 'Authorization',
+          value: AUTH]] endpoint
 
     //   def endpoint = CLO_URL + "v1/projects"
     //   def conn = new URL(endpoint).openConnection()
