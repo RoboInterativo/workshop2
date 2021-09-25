@@ -1,10 +1,10 @@
-def getServers () {
+def getServers (TOKEN) {
   def commits = [:]
       def CLO_URL="https://api.clo.ru/"
-      def AUTH= credentials('clo')
+      //def AUTH= credentials('clo')
       def endpoint = CLO_URL + "v1/projects"
       def response = httpRequest contentType: 'APPLICATION_JSON' , customHeaders: [[name: 'Authorization',
-          value: AUTH]] endpoint
+          value: TOKEN]] endpoint
 
     //   def endpoint = CLO_URL + "v1/projects"
     //   def conn = new URL(endpoint).openConnection()
@@ -13,7 +13,7 @@ def getServers () {
     //   def response = new groovy.json.JsonSlurper().parseText(conn.content.text)
     //   response.values.each {
     //     commits.put(it.displayId, it.message)
-    
+
     return response.content
 }
 
@@ -35,6 +35,10 @@ pipeline {
 
 
     }
+    environment {
+        TOKEN     = credentials('clo')
+
+    }
 
 
 
@@ -53,7 +57,7 @@ pipeline {
               submoduleCfg: [],
               userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
 
-              def servers=getServers();
+              def servers=getServers(TOKEN);
               println ${server} ;
 
             //   withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
