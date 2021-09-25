@@ -1,10 +1,8 @@
 def getServers (TOKEN) {
   def commits = [:]
-      def CLO_URL="https://api.clo.ru/"
-      //def AUTH= credentials('clo')
-      def endpoint = CLO_URL + "v1/projects"
-      def response = httpRequest contentType: 'APPLICATION_JSON' , customHeaders: [[name: 'Authorization',
-          value: TOKEN]] endpoint
+      def CLO_URL="https://api.clo.ru/v1/projects"
+      def response = httpRequest contentType: 'APPLICATION_JSON' ,
+      customHeaders: [[name: 'Authorization',  value: TOKEN]] ,url: CLO_URL
     println response.content
     //   def endpoint = CLO_URL + "v1/projects"
     //   def conn = new URL(endpoint).openConnection()
