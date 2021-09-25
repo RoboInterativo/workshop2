@@ -59,32 +59,32 @@
 
 
 #
-- name: SERVER
-  uri:
-    url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
-    status_code: 201
-    method: POST
-    headers:
-      Content-Type: 'application/json'
-      Authorization: 'Bearer {{ token }}'
-    body_format: json
+# - name: SERVER
+#   uri:
+#     url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
+#     status_code: 201
+#     method: POST
+#     headers:
+#       Content-Type: 'application/json'
+#       Authorization: 'Bearer {{ token }}'
+#     body_format: json
+#
+#     body:
+#       name: "test"
+#       flavor:
+#             ram: 2
+#             vcpus: 1
+#       image: "{{image_id}}"
+#
+#       addresses:
+#         -  {"version": 4, "external": True}
+#       storages:
+#         - { "size": 10, "bootable": True,        "storage_type": "local"  }
+#   register: rez3
 
-    body:
-      name: "test"
-      flavor:
-            ram: 2
-            vcpus: 1
-      image: "{{image_id}}"
-
-      addresses:
-        -  {"version": 4, "external": True}
-      storages:
-        - { "size": 10, "bootable": True,        "storage_type": "local"  }
-  register: rez3
-
-- name: Debug3
-  debug:
-    var: rez3
+# - name: Debug3
+#   debug:
+#     var: rez3
 
 # - name: set fact
 #   set_fact:
@@ -95,13 +95,14 @@
 #   debug:
 #     var: server_id
 
-- name: Debug3
-  debug:
-    var: rez3
+# - name: Debug3
+#   debug:
+#     var: rez3
 
 - name: set fact
   set_fact:
-    server_id: '{{ rez3.json.result.id }}'
+      server_id: '5e14b461-5408-48bf-ae44-114eaca9e300'
+    # server_id: '{{ rez3.json.result.id }}'
 
 - name: Debug3
   debug:
@@ -118,6 +119,10 @@
       Authorization: 'Bearer {{ token }}'
 
   register: rez_detail
+
+- name: Debug3
+  debug:
+    var: rez_detail
 # - name: SERVER
 #   uri:
 #     url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
