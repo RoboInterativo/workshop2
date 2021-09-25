@@ -13,7 +13,7 @@ def getServers () {
     //   def response = new groovy.json.JsonSlurper().parseText(conn.content.text)
     //   response.values.each {
     //     commits.put(it.displayId, it.message)
-    }
+    
     return response.content
 }
 
