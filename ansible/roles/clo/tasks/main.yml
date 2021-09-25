@@ -126,7 +126,7 @@
 
 - name: Debug4
   debug:
-    var: rez_detail.json.result.adresses
+    var: rez_detail.json.result.addresses
 
 - name: SERVER keys
   uri:
