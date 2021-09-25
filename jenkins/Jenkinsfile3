@@ -1,16 +1,17 @@
 pipeline {
     agent any
        parameters {
-               string(
-          			name: 'CODE_REPO',
-          			defaultValue: 'https://github.com/RoboInterativo/simple-back-front.git',
-          			description: 'CODE_REPO'
-		            )
-		 string(
-			name: 'BRANCH',
-			defaultValue: 'main',
-			description: 'BRANCH'
-		)
+         choice choices: 'model-base-python3\nex-py3', name: 'MODELNAME'
+    //            string(
+    //       			name: 'CODE_REPO',
+    //       			defaultValue: 'https://github.com/RoboInterativo/simple-back-front.git',
+    //       			description: 'CODE_REPO'
+		//             )
+		//  string(
+		// 	name: 'BRANCH',
+		// 	defaultValue: 'main',
+		// 	description: 'BRANCH'
+		// )
 
 
     }
