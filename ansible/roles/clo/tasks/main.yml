@@ -144,6 +144,13 @@
 - name: Debug4
   debug:
     var: rez6
+
+- name: templates
+  templates:
+    src: message.txt
+    dest: '{{ work_dir }}/message.txt'
+
+    
 # - name: SERVER
 #   uri:
 #     url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'

@@ -1,0 +1,9 @@
+Адреса серверов:
+
+{% for item in rez_detail.json.result.addresses %}
+{% if item.external  %}   ip: {{ item.name }} {% endif %}
+{% endfor %}
+
+Для входа используйте:
+пользователь root
+пароль: {{ ssh_pass }}
