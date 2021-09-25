@@ -1,0 +1,192 @@
+---
+- name: Debug
+  debug:
+    msg: Hello
+- name: shell
+  shell: cat /home/jenkins/.ssh/id_rsa.pub
+  register: pub_key
+  #cat /home/jenkins/.ssh/authorized_keys
+
+- name: Debug
+  debug:
+    var: pub_key
+
+- name: GET PROJECTD
+  uri:
+    url: https://api.clo.ru/v1/projects
+    method: GET
+    headers:
+      Content-Type: 'application/json'
+      Authorization: 'Bearer {{ token }}'
+  register: rez
+
+- name: Debug
+  debug:
+    var: rez
+
+- name: set fact
+  set_fact:
+    rez2: '{{ rez.json.results |first }}'
+
+- name: Debug2
+  debug:
+    var: rez2
+
+- name: set fact
+  set_fact:
+    project_id: '{{ rez2.id }}'
+    image_id: "e3a5be78-dbff-410d-952b-64c13f11844e"
+
+# - name: SERVER keys
+#   uri:
+#     url: 'https://api.clo.ru/v1/keypairs '
+#     status_code: 201
+#     method: POST
+#     headers:
+#       Content-Type: 'application/json'
+#       Authorization: 'Bearer {{ token }}'
+#     body_format: json
+#     body:
+#         name: jenkins
+#         public_key: '{{ pub_key.stdout }}'
+#   register: rez4
+#
+# - name: Debug4
+#   debug:
+#     var: rez4ansiblePlaybook extras: "-vv --extra-vars \"t
+
+
+
+
+#
+# - name: SERVER
+#   uri:
+#     url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
+#     status_code: 201
+#     method: POST
+#     headers:
+#       Content-Type: 'application/json'
+#       Authorization: 'Bearer {{ token }}'
+#     body_format: json
+#
+#     body:
+#       name: "test"
+#       flavor:
+#             ram: 2
+#             vcpus: 1
+#       image: "{{image_id}}"
+#
+#       addresses:
+#         -  {"version": 4, "external": True}
+#       storages:
+#         - { "size": 10, "bootable": True,        "storage_type": "local"  }
+#   register: rez3
+
+# - name: Debug3
+#   debug:
+#     var: rez3
+
+# - name: set fact
+#   set_fact:
+#     server_id: '1107c4cc-e49c-4f85-a19a-24daccf17f2e'
+#   #  server_id: '{{ rez3.json.result.id }}'
+
+# - name: Debug3
+#   debug:
+#     var: server_id
+
+# - name: Debug3
+#   debug:
+#     var: rez3
+
+- name: set fact
+  set_fact:
+      server_id: '5e14b461-5408-48bf-ae44-114eaca9e300'
+    # server_id: '{{ rez3.json.result.id }}'
+
+- name: Debug3
+  debug:
+    var: server_id
+
+
+- name: SERVER
+  uri:
+    url: 'https://api.clo.ru/v1/servers/{{server_id}}/detail'
+    status_code: 200
+    method: GET
+    headers:
+      Content-Type: 'application/json'
+      Authorization: 'Bearer {{ token }}'
+
+  register: rez_detail
+
+- name: Debug3
+  debug:
+    var: rez_detail
+
+- name: Debug4
+  debug:
+    var: rez_detail.json.result.addresses
+
+- name: SERVER keys
+  uri:
+    url: 'https://api.clo.ru/v1/servers/{{ server_id }}/password'
+    status_code: 202
+    method: POST
+    headers:
+      Content-Type: 'application/json'
+      Authorization: 'Bearer {{ token }}'
+    body_format: json
+    body:
+        password: '{{ ssh_pass }}'
+  register: rez6
+
+- name: Debug4
+  debug:
+    var: rez6
+
+- name: templates
+  template:
+    src: message.txt
+    dest: '{{ work_dir }}/message.txt'
+
+
+# - name: SERVER
+#   uri:
+#     url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
+#     status_code: 201
+#     method: POST
+#     headers:
+#       Content-Type: 'application/json'
+#       Authorization: 'Bearer  token '
+#     body_format: json
+#
+#     body:
+#       name: "test"
+#       flavor:
+#             ram: 2
+#             vcpus: 1
+#       image: "{{image_id}}"
+#
+#       addresses:
+#         -  {"version": 4, "external": True}
+#       storages:
+#         - { "size": 10, "bootable": True,        "storage_type": "local"  }
+#   register: rez3
+
+
+# - name: Debug3
+#   debug:
+#     var: rez_detail
+
+    #783b5f29-ba6f-4cce-a80e-6aa239a22f28
+
+# URL = "https://api.clo.ru/v1/projects"
+#
+# HEADERS = {'Content-Type': 'application/json', 'Authorization': 'Bearer b7d03a6947b217efb6f3ec3bd3504582'}
+#
+# # sending get request and saving the response as response object
+# r
+#
+# Authorization: Bearer <JWT>
+# /v1/projects/{project_id}/servers
