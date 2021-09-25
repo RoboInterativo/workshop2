@@ -1,3 +1,19 @@
+def getServers () {
+  def commits = [:]
+      def CLO_URL="https://api.clo.ru/"
+      def AUTH= credentials('clo')
+      def endpoint = GIT_URL + "/v1/projects"
+      def conn = new URL(endpoint).openConnection()
+    //  'Bearer {{ token }}
+      conn.setRequestProperty("Authorization", "Bearer ${AUTH}")
+      def response = new groovy.json.JsonSlurper().parseText(conn.content.text)
+      response.values.each {
+        commits.put(it.displayId, it.message)
+    }
+    return commits
+}
+
+
 pipeline {
     agent any
        parameters {
@@ -22,9 +38,11 @@ pipeline {
         stage('Stage 1') {
             steps {
               script {
+
               def git_cred='2c259981-11c3-4202-bfb4-294515794d21'
               def git_url='git@github.com:RoboInterativo/workshop2.git'
-
+              def servers=getServers()
+              println ${server}
               // checkout([$class: 'GitSCM', branches: [[name: "main"]],
               // doGenerateSubmoduleConfigurations: false,
               // extensions: [[$class: 'RelativeTargetDirectory',
@@ -32,19 +50,20 @@ pipeline {
               // submoduleCfg: [],
               // userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
 
-              withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
-                    withCredentials([string(credentialsId: 'ssh_default_password', variable: 'ssh_default_password')]) {
-                dir ('ansible') {
-                  sh 'echo ${clo}>tok '
-                  ansiblePlaybook extras: "-vv --extra-vars \"work_dir=${WORKSPACE} token=${clo} ssh_pass=${ssh_default_password} inventory_dir=\"inventories/dev/\"\" ",
-                  installation: 'ansible29',
-                  inventory: "inventories/dev/inventory",
-                  playbook: "playbooks/servers_clo.yml"
-                }
-                telegramSend 'Hello World'
-
-              }
-            }}
+            //   withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
+            //         withCredentials([string(credentialsId: 'ssh_default_password', variable: 'ssh_default_password')]) {
+            //     dir ('ansible') {
+            //       sh 'echo ${clo}>tok '
+            //       ansiblePlaybook extras: "-vv --extra-vars \"work_dir=${WORKSPACE} token=${clo} ssh_pass=${ssh_default_password} inventory_dir=\"inventories/dev/\"\" ",
+            //       installation: 'ansible29',
+            //       inventory: "inventories/dev/inventory",
+            //       playbook: "playbooks/servers_clo.yml"
+            //     }
+            //     telegramSend 'Hello World'
+            //
+            //   }
+            // }
+          }
 
 
                            //${WORKSPACE}
