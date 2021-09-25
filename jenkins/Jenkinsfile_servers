@@ -2,7 +2,7 @@ def getServers () {
   def commits = [:]
       def CLO_URL="https://api.clo.ru/"
       def AUTH= credentials('clo')
-      def endpoint = GIT_URL + "/v1/projects"
+      def endpoint = CLO_URL + "v1/projects"
       def conn = new URL(endpoint).openConnection()
     //  'Bearer {{ token }}
       conn.setRequestProperty("Authorization", "Bearer ${AUTH}")
@@ -41,14 +41,16 @@ pipeline {
 
               def git_cred='2c259981-11c3-4202-bfb4-294515794d21'
               def git_url='git@github.com:RoboInterativo/workshop2.git'
+
+              checkout([$class: 'GitSCM', branches: [[name: "main"]],
+              doGenerateSubmoduleConfigurations: false,
+              extensions: [[$class: 'RelativeTargetDirectory',
+              relativeTargetDir: 'ci/']], gitTool: 'Default',
+              submoduleCfg: [],
+              userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
+
               def servers=getServers();
               println ${server} ;
-              // checkout([$class: 'GitSCM', branches: [[name: "main"]],
-              // doGenerateSubmoduleConfigurations: false,
-              // extensions: [[$class: 'RelativeTargetDirectory',
-              // relativeTargetDir: 'ci/']], gitTool: 'Default',
-              // submoduleCfg: [],
-              // userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
 
             //   withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
             //         withCredentials([string(credentialsId: 'ssh_default_password', variable: 'ssh_default_password')]) {
