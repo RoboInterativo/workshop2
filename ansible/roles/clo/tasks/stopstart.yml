@@ -1,0 +1,65 @@
+---
+
+
+- name: GET PROJECTD
+  uri:
+    url: https://api.clo.ru/v1/projects
+    method: GET
+    headers:
+      Content-Type: 'application/json'
+      Authorization: 'Bearer {{ token }}'
+  register: rez
+
+- name: Debug
+  debug:
+    var: rez
+
+- name: set fact
+  set_fact:
+    rez2: '{{ rez.json.results |first }}'
+
+- name: Debug2
+  debug:
+    var: rez2
+
+- name: set fact
+  set_fact:
+    project_id: '{{ rez2.id }}'
+    image_id: "e3a5be78-dbff-410d-952b-64c13f11844e"
+
+- name: GET PROJECTD
+  uri:
+    url: 'https://api.clo.ru/v1/projects/{{project_id}}/servers'
+
+    method: GET
+    headers:
+      Content-Type: 'application/json'
+      Authorization: 'Bearer {{ token }}'
+  register: rez_servers
+
+
+
+
+
+
+
+- name: Debug3
+  debug:
+    var: rez_servers
+
+- name: set fact
+  set_fact:
+    rez_server: '{{ rez_servers.json.results |first }}'
+
+
+
+- name: SERVER STOP
+  uri:
+    url: 'https://api.clo.ru/v1/servers/{{ rez_server.id }}/stop'
+    status_code: 201
+    method: POST
+    headers:
+      Content-Type: 'application/json'
+      Authorization: 'Bearer {{ token }}'
+
+  register: rez3
