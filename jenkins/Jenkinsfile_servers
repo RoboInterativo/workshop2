@@ -49,15 +49,15 @@ pipeline {
               def git_cred='2c259981-11c3-4202-bfb4-294515794d21'
               def git_url='git@github.com:RoboInterativo/workshop2.git'
 
-              checkout([$class: 'GitSCM', branches: [[name: "main"]],
-              doGenerateSubmoduleConfigurations: false,
-              extensions: [[$class: 'RelativeTargetDirectory',
-              relativeTargetDir: 'ci/']], gitTool: 'Default',
-              submoduleCfg: [],
-              userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
-
-              def servers=getServers(TOKEN);
-              println ${server} ;
+              // checkout([$class: 'GitSCM', branches: [[name: "main"]],
+              // doGenerateSubmoduleConfigurations: false,
+              // extensions: [[$class: 'RelativeTargetDirectory',
+              // relativeTargetDir: 'ci/']], gitTool: 'Default',
+              // submoduleCfg: [],
+              // userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
+              sh 'pwd && ls -li'
+              //def servers=getServers(TOKEN);
+              //println ${server} ;
 
             //   withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
             //         withCredentials([string(credentialsId: 'ssh_default_password', variable: 'ssh_default_password')]) {
