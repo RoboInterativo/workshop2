@@ -56,7 +56,7 @@
 - name: SERVER STOP
   uri:
     url: 'https://api.clo.ru/v1/servers/{{ rez_server.id }}/stop'
-    status_code: 201
+    status_code: 202
     method: POST
     headers:
       Content-Type: 'application/json'
