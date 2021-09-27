@@ -40,21 +40,7 @@ def getServers (TOKEN) {
 //findAMIs().join('\n')
 pipeline {
     agent any
-       parameters {
-         choice choices: getServers( credentials('clo')), name: 'MODELNAME'
-    //            string(
-    //       			name: 'CODE_REPO',
-    //       			defaultValue: 'https://github.com/RoboInterativo/simple-back-front.git',
-    //       			description: 'CODE_REPO'
-		//             )
-		//  string(
-		// 	name: 'BRANCH',
-		// 	defaultValue: 'main',
-		// 	description: 'BRANCH'
-		// )
 
-
-    }
     environment {
         TOKEN     = credentials('clo')
 
@@ -63,6 +49,18 @@ pipeline {
 
 
     stages {
+        stage ('GET servers') {
+          steps {
+            script {
+            parameters {
+              choice choices: getServers( TOKEN ), name: 'MODELNAME'
+         
+
+
+            }
+          }
+          }
+        }
         stage('Stage 1') {
             steps {
               script {
