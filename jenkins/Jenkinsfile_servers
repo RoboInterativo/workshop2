@@ -1,8 +1,8 @@
 def getServers (TOKEN) {
-  def URL="https://api.clo.ru/v1/projects"
+  def CLO_URL="https://api.clo.ru/v1/projects"
 
   REL=sh (returnStdout:true,
-    script: 'curl -X GET -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\" \"${URL}\"')
+    script: 'curl -X GET -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\" \"${CLO_URL}\"')
 
   // def commits = [:]
       // def CLO_URL="https://api.clo.ru/v1/projects"
