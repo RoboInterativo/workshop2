@@ -35,7 +35,7 @@ def getServers (TOKEN) {
     //   response.values.each {
     //     commits.put(it.displayId, it.message)
 
-    return jsonObj
+    return mylist
 }
 // def TOKEN     = credentials('clo')
 // def SERVERS_LIST = getServers (TOKEN)
