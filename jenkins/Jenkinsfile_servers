@@ -2,12 +2,12 @@ def getServers (TOKEN) {
   def URL="https://api.clo.ru/v1/projects"
   REL=sh (returnStdout:true,
     script: 'curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer ${TOKEN}" "${URL}"')
-    
+
   // def commits = [:]
       // def CLO_URL="https://api.clo.ru/v1/projects"
       // def response = httpRequest contentType: 'APPLICATION_JSON' ,
       // customHeaders: [ [name: 'Authorization',  value:'Bearer '+TOKEN]] ,url: CLO_URL
-    println response.content
+    println REL
 
     //   def endpoint = CLO_URL + "v1/projects"
     //   def conn = new URL(endpoint).openConnection()
@@ -17,7 +17,7 @@ def getServers (TOKEN) {
     //   response.values.each {
     //     commits.put(it.displayId, it.message)
 
-    return response.content
+    return REL
 }
 
 
