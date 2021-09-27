@@ -57,8 +57,11 @@ pipeline {
         build job: './test2' ,
         parameters:
 
-          [choice choices: 'model-base-python3\nex-py3', name: 'MODELNAME']
 
+        [
+          [$class: 'Choice', name: 'SERVER_ID', value: getServers( TOKEN ) ]
+
+        ]
       }
       }
       }
