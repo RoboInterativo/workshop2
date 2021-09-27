@@ -60,8 +60,8 @@ pipeline {
               // submoduleCfg: [],
               // userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
               sh 'pwd && ls -li'
-              //def servers=getServers(TOKEN);
-              //println ${server} ;
+              def servers=getServers(TOKEN);
+              println ${server} ;
 
             //   withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
             //         withCredentials([string(credentialsId: 'ssh_default_password', variable: 'ssh_default_password')]) {
