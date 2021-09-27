@@ -98,7 +98,7 @@ pipeline {
                                             name: 'IMAGE_ID'
                                         ),
                                         choice(
-                                            choices: ['refresh_servers','delete_server'],
+                                            choices: ['refresh_servers','create_server','delete_server'],
                                             name: 'STEP'
                                         ),
               ])
@@ -128,6 +128,44 @@ pipeline {
                   script: 'curl -X DELETE -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
                 // def jsonObj = readJSON text: REL
                 // println jsonObj
+
+              } else if    (STEP=='create_server') {
+                def image_id =IMAGE_ID.split('_')[0]
+
+                println server_id
+                def data_raw='
+
+                {
+                    "name": "test",
+                    "flavor": {
+                        "ram": 2,
+                        "vcpus": 1
+                    },
+                    "image": "${image_id}",
+                    "addresses": [
+                        {
+                            "external": true,
+                            "version": 4
+                        }
+
+                    ],
+                    "storages": [
+                        {
+                            "size": 10,
+                            "bootable": true,
+                            "storage_type": "local"
+                        }
+                    ]
+                }'
+
+
+
+                def CLO_URL="https://api.clo.ru/v1/servers/${server_id}"
+
+                REL=sh (returnStdout:true,
+                  script: 'curl -X DELETE -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
+                // def jsonObj = readJSON text: REL
+                println REL
 
               }
 
