@@ -41,7 +41,7 @@ def getServers (TOKEN) {
 pipeline {
     agent any
        parameters {
-         choice choices: getServers(TOKEN), name: 'MODELNAME'
+         choice choices: getServers( credentials('clo')), name: 'MODELNAME'
     //            string(
     //       			name: 'CODE_REPO',
     //       			defaultValue: 'https://github.com/RoboInterativo/simple-back-front.git',
