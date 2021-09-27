@@ -81,8 +81,8 @@ pipeline {
               script {
 
               if (STEP=='refresh_servers') {
-                println 'refresh server lise'
-              } else if    (STEP=='refresh_servers') {
+                println 'refresh server list'
+              } else if    (STEP=='delete_server') {
                 def server_id =PARAMETER_01.split('_')[0]
                 println server_id
               }
