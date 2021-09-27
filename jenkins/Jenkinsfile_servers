@@ -35,13 +35,13 @@ def getServers (TOKEN) {
 
     return jsonObj
 }
-def TOKEN     = credentials('clo')
-def SERVERS_LIST = getServers (TOKEN)
+// def TOKEN     = credentials('clo')
+// def SERVERS_LIST = getServers (TOKEN)
 //findAMIs().join('\n')
 pipeline {
     agent any
        parameters {
-         choice choices: SERVERS_LIST, name: 'MODELNAME'
+         choice choices: getServers(TOKEN), name: 'MODELNAME'
     //            string(
     //       			name: 'CODE_REPO',
     //       			defaultValue: 'https://github.com/RoboInterativo/simple-back-front.git',
@@ -56,7 +56,7 @@ pipeline {
 
     }
     environment {
-        TOKEN2     = credentials('clo')
+        TOKEN     = credentials('clo')
 
     }
 
