@@ -15,7 +15,7 @@ def getServers (TOKEN) {
   def str=''
   def mylist=[]
   for(emp in jsonObj.results) {
-    mylist.add("${emp.id}")
+    mylist.add("${emp.id}_#{emp.name}")
 
 	      }
 
@@ -59,7 +59,7 @@ pipeline {
             properties([
             parameters([
                                         choice(
-                                            choices: ['1','2'],
+                                            choices: getServers( TOKEN ),
                                             name: 'PARAMETER_01'
                                         ),
               ])
@@ -71,7 +71,7 @@ pipeline {
       }
       }
 
-//getServers( TOKEN )
+
         stage('Stage 1') {
             steps {
               script {
