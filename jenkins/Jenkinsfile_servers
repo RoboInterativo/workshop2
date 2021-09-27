@@ -130,9 +130,19 @@ pipeline {
                 // println jsonObj
 
               } else if    (STEP=='create_server') {
+                REL=sh (returnStdout:true,
+                  script: 'curl -X GET -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
+                def jsonObj = readJSON text: REL
+
+                def project_id= jsonObj.results[0].id
+                println project_id
+                CLO_URL= 'https://api.clo.ru/v1/projects/'+project_id+'/servers '
+
+
+
                 def image_id =IMAGE_ID.split('_')[0]
 
-                println server_id
+                //println server_id
                 def data_raw='''\
                 {
                     "name": "test",
@@ -159,7 +169,8 @@ pipeline {
 
 
 
-                def CLO_URL="https://api.clo.ru/v1/servers/${server_id}"
+
+
 
                 REL=sh (returnStdout:true,
                   script: 'curl -X DELETE -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\" --data-raw \'${data_raw}\'   '+CLO_URL)
