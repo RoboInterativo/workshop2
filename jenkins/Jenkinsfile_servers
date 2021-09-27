@@ -59,7 +59,7 @@ pipeline {
             properties([
             parameters([
                                         choice(
-                                            choices: getServers( TOKEN ),
+                                            choices: ['1','2'],
                                             name: 'PARAMETER_01'
                                         ),
               ])
@@ -71,7 +71,7 @@ pipeline {
       }
       }
 
-
+//getServers( TOKEN )
         stage('Stage 1') {
             steps {
               script {
