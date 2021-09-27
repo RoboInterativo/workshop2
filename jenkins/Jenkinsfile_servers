@@ -1,3 +1,34 @@
+
+
+def getImages (TOKEN) {
+  def CLO_URL="https://api.clo.ru/v1/projects"
+
+  REL=sh (returnStdout:true,
+    script: 'curl -X GET -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
+  def jsonObj = readJSON text: REL
+
+  def project_id= jsonObj.results[0].id
+  println project_id
+  CLO_URL= 'https://api.clo.ru/v1/projects/'+project_id+'/images'
+
+  REL=sh (returnStdout:true,
+    script: 'curl -X GET -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
+  jsonObj = readJSON text: REL
+  println REL
+  def str=''
+  def mylist=[]
+  for(emp in jsonObj.results) {
+    mylist.add("${emp.id}_${emp.name}")
+
+	      }
+
+    println mylist
+
+
+
+    return mylist
+}
+
 def getServers (TOKEN) {
   def CLO_URL="https://api.clo.ru/v1/projects"
 
@@ -63,6 +94,10 @@ pipeline {
                                             name: 'PARAMETER_01'
                                         ),
                                         choice(
+                                            choices: getImages( TOKEN ),
+                                            name: 'IMAGE_ID'
+                                        ),
+                                        choice(
                                             choices: ['refresh_servers','delete_server'],
                                             name: 'STEP'
                                         ),
@@ -91,8 +126,8 @@ pipeline {
 
                 REL=sh (returnStdout:true,
                   script: 'curl -X DELETE -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
-                def jsonObj = readJSON text: REL
-                println jsonObj
+                // def jsonObj = readJSON text: REL
+                // println jsonObj
 
               }
 
