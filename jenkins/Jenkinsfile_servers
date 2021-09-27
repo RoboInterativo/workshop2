@@ -160,7 +160,7 @@ pipeline {
 
 
                 REL=sh (returnStdout:true,
-                  script: 'curl -X POST -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\" --data-raw \'${data_raw}\'   '+CLO_URL)
+                  script: 'curl -v -X POST -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\" --data-raw \'${data_raw}\'   '+CLO_URL)
                 // def jsonObj = readJSON text: REL
                 println REL
 
