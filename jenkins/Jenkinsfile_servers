@@ -137,7 +137,7 @@ pipeline {
                         "ram": 2,
                         "vcpus": 1
                     },
-                    "image": "${image_id}",
+                    "image": "'''+image_id+'''",
                     "addresses": [
                         {
                             "external": true,
