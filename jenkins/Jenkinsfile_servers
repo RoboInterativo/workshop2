@@ -51,26 +51,12 @@ def getServers (TOKEN) {
 	      }
 
 
-//-H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\" \
-  // def commits = [:]
-      // def CLO_URL="https://api.clo.ru/v1/projects"
-      // def response = httpRequest contentType: 'APPLICATION_JSON' ,
-      // customHeaders: [ [name: 'Authorization',  value:'Bearer '+TOKEN]] ,url: CLO_URL
     println mylist
 
-    //   def endpoint = CLO_URL + "v1/projects"
-    //   def conn = new URL(endpoint).openConnection()
-    // //  'Bearer {{ token }}
-    //   conn.setRequestProperty("", "Bearer ${AUTH}")
-    //   def response = new groovy.json.JsonSlurper().parseText(conn.content.text)
-    //   response.values.each {
-    //     commits.put(it.displayId, it.message)
 
     return mylist
 }
-// def TOKEN     = credentials('clo')
-// def SERVERS_LIST = getServers (TOKEN)
-//findAMIs().join('\n')
+
 pipeline {
     agent any
 
@@ -126,10 +112,11 @@ pipeline {
 
                 REL=sh (returnStdout:true,
                   script: 'curl -X DELETE -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
-                // def jsonObj = readJSON text: REL
-                // println jsonObj
+
 
               } else if    (STEP=='create_server') {
+
+                def CLO_URL="https://api.clo.ru/v1/projects"
                 REL=sh (returnStdout:true,
                   script: 'curl -X GET -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
                 def jsonObj = readJSON text: REL
