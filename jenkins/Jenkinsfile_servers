@@ -3,6 +3,7 @@ def getServers (TOKEN) {
 
   REL=sh (returnStdout:true,
     script: 'curl -X GET -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
+  def jsonObj = readJSON text: REL
 //-H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\" \
   // def commits = [:]
       // def CLO_URL="https://api.clo.ru/v1/projects"
@@ -18,7 +19,7 @@ def getServers (TOKEN) {
     //   response.values.each {
     //     commits.put(it.displayId, it.message)
 
-    return REL
+    return jsonObj
 }
 
 
@@ -62,7 +63,7 @@ pipeline {
               // userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
               sh 'pwd && ls -li'
               def servers=getServers(TOKEN);
-              println ${server} ;
+              println servers ;
 
             //   withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
             //         withCredentials([string(credentialsId: 'ssh_default_password', variable: 'ssh_default_password')]) {
