@@ -49,17 +49,20 @@ pipeline {
 
 
 
-    
+
       stages() {
         stage('Test1' ) {
         steps {
           script {
 
         parameters: [
-          [$class: 'ChoiceParameterValue', name: 'SERVER_ID', value: getServers( TOKEN ) ],
+          [$class: 'ChoiceParameterValue', name: 'SERVER_ID', value: getServers( TOKEN ) ]
 
-        ] } }
+        ] 
       }
+      }
+      }
+
 
         stage('Stage 1') {
             steps {
