@@ -14,7 +14,7 @@ def getServers (TOKEN) {
   println REL
   def str=''
   for(emp in jsonObj.results) {
-    str=str+emp.name,emp.id+'\n'
+    str=str+emp.name+':'+emp.id+'\n'
 	      }
 
 
