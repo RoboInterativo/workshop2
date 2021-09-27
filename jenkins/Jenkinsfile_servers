@@ -47,8 +47,10 @@ pipeline {
     }
 
     parameters {
+        script {
+        def  TOKEN     = credentials('clo')
       choice choices: getServers( TOKEN ), name: 'MODELNAME'
-
+    }
 
 
     }
