@@ -54,11 +54,11 @@ pipeline {
         stage('Test1' ) {
         steps {
           script {
-
+        build job: './test2' ,
         parameters: [
           [$class: 'ChoiceParameterValue', name: 'SERVER_ID', value: getServers( TOKEN ) ]
 
-        ] 
+        ]
       }
       }
       }
