@@ -46,23 +46,14 @@ pipeline {
 
     }
 
-
-
-    stages {
-        stage ('GET servers') {
-          steps {
-            script {
-              properties([
-            parameters {
-              choice choices: getServers( TOKEN ), name: 'MODELNAME'
+    parameters {
+      choice choices: getServers( TOKEN ), name: 'MODELNAME'
 
 
 
-            }
-          ])
-          }
-          }
-        }
+    }
+
+  
         stage('Stage 1') {
             steps {
               script {
