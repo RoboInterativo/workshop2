@@ -55,10 +55,10 @@ pipeline {
         steps {
           script {
         build job: './test2' ,
-        parameters: [
-          [$class: 'ChoiceParameterValue', name: 'SERVER_ID', value: getServers( TOKEN ) ]
+        parameters:
 
-        ]
+          [choice choices: 'model-base-python3\nex-py3', name: 'MODELNAME']
+
       }
       }
       }
