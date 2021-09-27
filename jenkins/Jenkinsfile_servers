@@ -80,11 +80,12 @@ pipeline {
             steps {
               script {
 
-              def git_cred='2c259981-11c3-4202-bfb4-294515794d21'
-              def git_url='git@github.com:RoboInterativo/workshop2.git'
-
-
-              sh 'pwd && ls -li'
+              if (STEP=='refresh_servers') {
+                println 'refresh server lise'
+              } else if    (STEP=='refresh_servers') {
+                def server_id =PARAMETER_01.split('_')[0]
+                println server_id
+              }
 
           }
 
