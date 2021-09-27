@@ -46,15 +46,20 @@ pipeline {
 
     }
 
-    parameters {
-        script {
-        def  TOKEN     = credentials('clo')
-      choice choices: getServers( TOKEN ), name: 'MODELNAME'
-    }
+    
 
 
     }
       stages() {
+        stage('Test1' ) {
+        steps {
+          script {
+
+        parameters: [
+          [$class: 'ChoiceParameterValue', name: 'SERVER_ID', value: getServers( TOKEN ) ],
+
+        ] } }
+      }
 
         stage('Stage 1') {
             steps {
