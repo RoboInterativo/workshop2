@@ -13,8 +13,10 @@ def getServers (TOKEN) {
   jsonObj = readJSON text: REL
   println REL
   def str=''
+  def mylist=[]
   for(emp in jsonObj.results) {
-    str=str+emp.name+':'+emp.id+'\n'
+    mylist.add(emp.name+':'+emp.id )
+
 	      }
 
 
@@ -23,7 +25,7 @@ def getServers (TOKEN) {
       // def CLO_URL="https://api.clo.ru/v1/projects"
       // def response = httpRequest contentType: 'APPLICATION_JSON' ,
       // customHeaders: [ [name: 'Authorization',  value:'Bearer '+TOKEN]] ,url: CLO_URL
-    println str
+    println mylist
 
     //   def endpoint = CLO_URL + "v1/projects"
     //   def conn = new URL(endpoint).openConnection()
@@ -54,14 +56,16 @@ pipeline {
         stage('Test1' ) {
         steps {
           script {
-        build job: './test2' ,
-        parameters:
+            parameters([
+                                        choice(
+                                            choices: getServers( TOKEN ),
+                                            name: 'PARAMETER_01'
+                                        ),
+              ])
 
 
-        [ choice (choices: getServers( TOKEN ), name: 'MODELNAME')
-        
 
-        ]
+
       }
       }
       }
