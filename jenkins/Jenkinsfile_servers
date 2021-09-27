@@ -58,8 +58,8 @@ pipeline {
         parameters:
 
 
-        [
-          [$class: 'Choice', name: 'SERVER_ID', value: getServers( TOKEN ) ]
+        [ choice (choices: getServers( TOKEN ), name: 'MODELNAME')
+        
 
         ]
       }
