@@ -15,7 +15,7 @@ def getServers (TOKEN) {
   def str=''
   def mylist=[]
   for(emp in jsonObj.results) {
-    mylist.add("${emp.name}:${emp.id}")
+    mylist.add("${emp.id}")
 
 	      }
 
