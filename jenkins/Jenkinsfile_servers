@@ -85,6 +85,15 @@ pipeline {
               } else if    (STEP=='delete_server') {
                 def server_id =PARAMETER_01.split('_')[0]
                 println server_id
+
+
+                def CLO_URL="https://api.clo.ru/v1/servers/${server_id}"
+
+                REL=sh (returnStdout:true,
+                  script: 'curl -X DELETE -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
+                def jsonObj = readJSON text: REL
+                println jsonObj
+
               }
 
           }
