@@ -162,7 +162,7 @@ pipeline {
                 def CLO_URL="https://api.clo.ru/v1/servers/${server_id}"
 
                 REL=sh (returnStdout:true,
-                  script: 'curl -X DELETE -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
+                  script: 'curl -X DELETE -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\" --data-raw \'${data_raw}\'   '+CLO_URL)
                 // def jsonObj = readJSON text: REL
                 println REL
 
