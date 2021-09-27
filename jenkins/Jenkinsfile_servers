@@ -52,7 +52,7 @@ pipeline {
 
 
     }
-
+      stages() {
 
         stage('Stage 1') {
             steps {
@@ -72,7 +72,7 @@ pipeline {
         }
 
     }
-
+  }
     post {
         success {
 
