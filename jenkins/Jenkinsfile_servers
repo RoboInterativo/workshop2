@@ -46,10 +46,10 @@ pipeline {
 
     }
 
+
+
+
     
-
-
-    }
       stages() {
         stage('Test1' ) {
         steps {
