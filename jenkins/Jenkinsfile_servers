@@ -44,7 +44,7 @@ def getServers (TOKEN) {
   jsonObj = readJSON text: REL
   println REL
   def str=''
-  def mylist=[]
+  def mylist=['None']
   for(emp in jsonObj.results) {
     mylist.add("${emp.id}_${emp.name}")
 
