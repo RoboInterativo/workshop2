@@ -12,13 +12,18 @@ def getServers (TOKEN) {
     script: 'curl -X GET -H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\"   '+CLO_URL)
   jsonObj = readJSON text: REL
   println REL
+  def str=''
+  for(emp in jsonObj.results) {
+    str=str+emp.name,emp.id+'\n'
+	      }
+
 
 //-H \"Content-Type: application/json\" -H "Authorization: Bearer ${TOKEN}\" \
   // def commits = [:]
       // def CLO_URL="https://api.clo.ru/v1/projects"
       // def response = httpRequest contentType: 'APPLICATION_JSON' ,
       // customHeaders: [ [name: 'Authorization',  value:'Bearer '+TOKEN]] ,url: CLO_URL
-    println REL
+    println str
 
     //   def endpoint = CLO_URL + "v1/projects"
     //   def conn = new URL(endpoint).openConnection()
@@ -30,12 +35,13 @@ def getServers (TOKEN) {
 
     return jsonObj
 }
-
-
+def TOKEN     = credentials('clo')
+def SERVERS_LIST = getServers (TOKEN)
+//findAMIs().join('\n')
 pipeline {
     agent any
        parameters {
-         choice choices: 'refresh\ncreate\ndelete', name: 'MODELNAME'
+         choice choices: SERVERS_LIST, name: 'MODELNAME'
     //            string(
     //       			name: 'CODE_REPO',
     //       			defaultValue: 'https://github.com/RoboInterativo/simple-back-front.git',
@@ -50,7 +56,7 @@ pipeline {
 
     }
     environment {
-        TOKEN     = credentials('clo')
+        TOKEN2     = credentials('clo')
 
     }
 
@@ -71,8 +77,8 @@ pipeline {
               // submoduleCfg: [],
               // userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
               sh 'pwd && ls -li'
-              def servers=getServers(TOKEN);
-              println servers ;
+              // def servers=getServers(TOKEN);
+              // println servers ;
 
             //   withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
             //         withCredentials([string(credentialsId: 'ssh_default_password', variable: 'ssh_default_password')]) {
