@@ -133,8 +133,7 @@ pipeline {
                 def image_id =IMAGE_ID.split('_')[0]
 
                 println server_id
-                def data_raw='
-
+                def data_raw='''\
                 {
                     "name": "test",
                     "flavor": {
@@ -156,7 +155,7 @@ pipeline {
                             "storage_type": "local"
                         }
                     ]
-                }'
+                }'''
 
 
 
