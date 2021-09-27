@@ -56,13 +56,14 @@ pipeline {
         stage('Test1' ) {
         steps {
           script {
+            properties([
             parameters([
                                         choice(
                                             choices: getServers( TOKEN ),
                                             name: 'PARAMETER_01'
                                         ),
               ])
-
+            ])
 
 
 
