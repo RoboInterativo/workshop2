@@ -1,0 +1,85 @@
+pipeline {
+    agent any
+       parameters {
+         choice choices: 'start\nstop', name: 'ACTION'
+    string(
+          			name: 'SERVER_ID',
+          			defaultValue: 'server_id',
+          			description: 'SERVER_ID'
+		            )
+		//  string(
+		// 	name: 'BRANCH',
+		// 	defaultValue: 'main',
+		// 	description: 'BRANCH'
+		// )
+
+
+    }
+
+
+
+    stages {
+        stage('Stage 1') {
+            steps {
+              script {
+              def git_cred='2c259981-11c3-4202-bfb4-294515794d21'
+              def git_url='git@github.com:RoboInterativo/workshop2.git'
+
+              checkout([$class: 'GitSCM', branches: [[name: "main"]],
+              doGenerateSubmoduleConfigurations: false,
+              extensions: [[$class: 'RelativeTargetDirectory',
+              relativeTargetDir: 'ci/']], gitTool: 'Default',
+              submoduleCfg: [],
+              userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
+
+
+
+
+              withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
+                    withCredentials([string(credentialsId: 'ssh_default_password', variable: 'ssh_default_password')]) {
+                dir ('ci/ansible') {
+                  sh 'echo ${clo}>tok '
+                  ansiblePlaybook extras: "-vv --extra-vars \"server_id=${SERVER_ID} work_dir=${WORKSPACE} token=${clo} ssh_pass=${ssh_default_password} inventory_dir=\"inventories/dev/\"\" ",
+                  installation: 'ansible29',
+                  inventory: "inventories/dev/inventory",
+                  playbook: "playbooks/list.yml"
+                }
+                telegramSend 'Hello World'
+
+              }
+            }}
+
+
+                           //${WORKSPACE}
+                        //  checkout([$class: 'GitSCM', branches: [[name: "master"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory',
+                        //  relativeTargetDir: 'ci/']], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cred',
+                        //  url: ""]]])
+                         // sh "pwd && ls -li "
+                         // sh "rm * -rf "
+                         // sh 'wget https://nodejs.org/dist/v14.17.6/node-v14.17.6-linux-x64.tar.xz'
+                         // sh 'tar xvf node-v14.17.6-linux-x64.tar.xz'
+                         // sh 'echo export PATH=$PATH:/var/lib/jenkins/workspace/test/node-v14.17.6-linux-x64/bin >> env'
+                         // sh '. ./env && node --version'
+                         // sh 'echo ${CODE_REPO}'
+                         // sh 'git clone ${CODE_REPO}'
+                         //    sh "export CI=false && . ./env && node --version && cd simple-back-front && cd front && npm install -f && npm run build"
+                         //    sh "cd ${WORKSPACE}/simple-back-front/front/ && zip build.zip build -r"
+
+                         //DEPLOY_TYPE = 'BUILDONOPENSHIFT4'
+
+                        //  ansiblePlaybook extras: "-vv --extra-vars \"inventory_dir=\"${WORKSPACE}/c/ansible/inventories/dev/\"\" ",
+                        //  installation: 'ansible29',
+                        //  inventory: "ci/ansible/inventories/dev/inventory",
+                        //  playbook: "ci/ansible/playbooks/test.yml"
+            }
+        }
+
+    }
+    post {
+        success {
+
+            archiveArtifacts allowEmptyArchive: true, artifacts: '${WORKSPACE}/simple-back-front/front/*.zip', fingerprint: true
+
+        }
+      }
+}
