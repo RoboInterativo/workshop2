@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Run tasks/other.yaml instead of 'main'
+    include_role:
+      name: clo
+      tasks_from: start

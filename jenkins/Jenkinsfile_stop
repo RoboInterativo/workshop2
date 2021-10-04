@@ -1,7 +1,7 @@
 pipeline {
     agent any
        parameters {
-         choice choices: 'model-base-python3\nex-py3', name: 'MODELNAME'
+         choice choices: 'start\nstop', name: 'ACTION'
     string(
           			name: 'SERVER_ID',
           			defaultValue: 'server_id',
@@ -31,6 +31,13 @@ pipeline {
               relativeTargetDir: 'ci/']], gitTool: 'Default',
               submoduleCfg: [],
               userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
+
+              if (ACTION=='stop') {
+                playbook_name='stop.yml'
+              } else if (ACTION=='start') {
+                  playbook_name='start.yml'
+              }
+
 
               withCredentials([string(credentialsId: 'clo', variable: 'clo')]) {
                     withCredentials([string(credentialsId: 'ssh_default_password', variable: 'ssh_default_password')]) {

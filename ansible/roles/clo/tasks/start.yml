@@ -17,4 +17,4 @@
 
 - name: Debug3
   debug:
-    var: rez3t
+    var: rez3
