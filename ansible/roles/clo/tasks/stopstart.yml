@@ -49,7 +49,7 @@
 
 - name: set fact
   set_fact:
-    rez_server: '{{ rez_servers.json.results |first }}'
+    rez_server: '{{ rez_servers.json.results  }}'
 
 
 

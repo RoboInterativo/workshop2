@@ -6,7 +6,7 @@
 
 - name: SERVER
   uri:
-    url: 'https://api.clo.ru//v1/servers/{{ server_id }}/stop'
+    url: 'https://api.clo.ru//v1/servers/{{ server_id }}/start'
     status_code: 202
     method: POST
     headers:
