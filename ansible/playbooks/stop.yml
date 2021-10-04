@@ -4,4 +4,4 @@
   - name: Run tasks/other.yaml instead of 'main'
     include_role:
       name: clo
-      tasks_from: stopstart2
+      tasks_from: stop
