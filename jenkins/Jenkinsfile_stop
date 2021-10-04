@@ -46,7 +46,7 @@ pipeline {
                   ansiblePlaybook extras: "-vv --extra-vars \"server_id=${SERVER_ID}work_dir=${WORKSPACE} token=${clo} ssh_pass=${ssh_default_password} inventory_dir=\"inventories/dev/\"\" ",
                   installation: 'ansible29',
                   inventory: "inventories/dev/inventory",
-                  playbook: "playbooks/stop.yml"
+                  playbook: "playbooks/${playbook_name}"
                 }
                 telegramSend 'Hello World'
 
