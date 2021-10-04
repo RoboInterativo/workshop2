@@ -1,8 +1,8 @@
 ---
 
-- name: set fact
-  set_fact:
-    server_id: '47dab8b8-f58f-44ed-8c2b-9309f4b9bf39'
+# - name: set fact
+#   set_fact:
+#     server_id: '47dab8b8-f58f-44ed-8c2b-9309f4b9bf39'
 
 - name: SERVER
   uri:
