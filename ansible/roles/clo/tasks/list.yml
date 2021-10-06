@@ -39,6 +39,15 @@
       Authorization: 'Bearer {{ token }}'
 
   register: rez3
+  
+- name: Add several users
+  ansible.builtin.user:
+    name: "{{ item }}"
+    state: present
+    groups: "wheel"
+  loop:
+     - testuser1
+     - testuser2
 
 - name: Debug3
   debug:
