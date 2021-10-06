@@ -28,7 +28,6 @@
     image_id: "e3a5be78-dbff-410d-952b-64c13f11844e"
 
 
-
 - name: SERVER
   uri:
     url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
@@ -39,15 +38,6 @@
       Authorization: 'Bearer {{ token }}'
 
   register: rez3
-  
-- name: Add several users
-  ansible.builtin.user:
-    name: "{{ item }}"
-    state: present
-    groups: "wheel"
-  loop:
-     - testuser1
-     - testuser2
 
 - name: Debug3
   debug:

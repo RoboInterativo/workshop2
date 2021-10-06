@@ -1,0 +1,10 @@
+message.txt
+- name: Create service service
+template:
+src: message.txt
+dest: list.yml
+mode: 0644
+
+{% for item in rez_detail.json.results %}
+ {{ item.id }}
+{% endfor %}
