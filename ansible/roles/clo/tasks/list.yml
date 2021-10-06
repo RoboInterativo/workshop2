@@ -50,5 +50,5 @@
     dest: '/tmp/report.txt'
     mode: 0644
 
-- name: Create service service
-  shell: 'cat  /tmp/report.txt'
+# - name: Create service service
+#   shell: 'cat  /tmp/report.txt'

@@ -44,8 +44,8 @@ pipeline {
                   inventory: "inventories/dev/inventory",
                   playbook: "playbooks/list.yml"
                 }
-                telegramSend 'Hello World'
-
+                //telegramSend 'Hello World'
+                sh 'cat  /tmp/report.txt'
               }
             }}
 
