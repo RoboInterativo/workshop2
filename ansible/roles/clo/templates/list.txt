@@ -1,4 +1,4 @@
 
-{% for item in rez_detail.json.results %}
-{{ item.id }}
+{% for item in rez3.json.results %}
+id:{{ item.id }}
 {% endfor %}
