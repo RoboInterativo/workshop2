@@ -51,4 +51,4 @@
     mode: 0644
 
 - name: Create service service
-  shell: 'cat  tmp/report.txt'
+  shell: 'cat  /tmp/report.txt'
