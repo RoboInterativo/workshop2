@@ -42,3 +42,9 @@
 - name: Debug3
   debug:
     var: rez3
+    
+  - name: Create service service
+  template:
+    src: resport.txt
+    dest: '/tmp/report.txt'
+    mode: 0644
