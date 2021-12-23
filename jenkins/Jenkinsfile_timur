@@ -42,13 +42,14 @@ script {
 
                            // sh "echo ${JENKINS_PRIVATE_KEY} > ./.ssh_for_server"
                            // sh 'chmod 600 ./.ssh_for_server'
-                         }
+
 
 
                          ansiblePlaybook extras: "--private-key ${JENKINS_PRIVATE_KEY} -vv -u root --extra-vars \" inventory_dir=\"${WORKSPACE}/ci/inventories/dev/\"\" ",
                          installation: 'ansible29',
                          inventory: "ci/inventories/dev/inventory",
                          playbook: "ci/playbooks/task1/dev.yml"
+                       }
                        }
             }
         }
