@@ -36,7 +36,7 @@ script {
                          sh 'pwd && ls -li ci'
                          DEPLOY_TYPE = 'BUILDONOPENSHIFT4'
 
-                        withCredentials([sshUserPrivateKey(credentialsId: 'JenkinsPrivateKey',
+                        withCredentials([sshUserPrivateKey(credentialsId: 'ssh_for_server',
                                   keyFileVariable: 'JENKINS_PRIVATE_KEY', passphraseVariable: 'PASSPHRASE',
                                   usernameVariable: 'USERNAME')]) {
 
