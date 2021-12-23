@@ -46,6 +46,8 @@ pipeline {
                 }
                 //telegramSend 'Hello World'
                 sh 'cat  /tmp/report.txt'
+
+                
               }
             }}
 
