@@ -40,7 +40,7 @@ script {
                                   keyFileVariable: 'JENKINS_PRIVATE_KEY', passphraseVariable: 'PASSPHRASE',
                                   usernameVariable: 'USERNAME')]) {
 
-                           sh "echo ${JenkinsPrivateKey} > ./.ssh_for_server"
+                           sh "echo ${JENKINS_PRIVATE_KEY} > ./.ssh_for_server"
                            sh 'chmod 600 ./.ssh_for_server'
                          }
 
