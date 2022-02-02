@@ -1,0 +1,19 @@
+---
+- name: Test ping host all
+  hosts: all
+  #become: yes
+  gather_facts: yes
+  tasks:
+  - name: Git checkout
+    ping:
+  - name: Download foo.conf
+    get_url:
+      url: 'https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-x64.tar.xz'
+      dest: /opt/node.tar.xz
+      mode: '0440'
+
+  - name: Extract foo.tgz into /var/lib/foo
+    ansible.builtin.unarchive:
+      src: /opt/node.tar.xz
+      dest: /opt
+      remote_src: yes

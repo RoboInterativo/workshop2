@@ -6,12 +6,3 @@
   tasks:
   - name: Git checkout
     ping:
-
-
-- name: Test ping host with group web
-  hosts: web
-  #become: yes
-  gather_facts: yes
-  tasks:
-  - name: Git checkout
-    ping: 

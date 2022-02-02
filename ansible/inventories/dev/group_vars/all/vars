@@ -1,4 +1,5 @@
 test: 1
+node_url: https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-x64.tar.xz
 
 package_list:
   - python-pip-whl

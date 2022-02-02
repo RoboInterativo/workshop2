@@ -1,0 +1,17 @@
+kafka_base: /opt/kafka
+kafka_home: '{{ kafka_base }}/current'
+kafka_scala_version: '2.12'
+kafka_distr_version: '2.5.0'
+kafka_filename: 'kafka_{{ kafka_scala_version }}-{{ kafka_distr_version }}.tgz'
+kafka_dir: 'kafka_{{ kafka_scala_version }}-{{ kafka_distr_version }}'
+
+kafka_distr_url: 'http://mirror.linux-ia64.org/apache/kafka/{{ kafka_distr_version }}/{{ kafka_filename }}'
+docker_requarements:
+  - apt-transport-https
+  - ca-certificates
+  - curl 
+  - software-properties-common
+docker_gpg_key_url: https://download.docker.com/linux/ubuntu/gpg
+docker_ubuntu_repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable'
+
+

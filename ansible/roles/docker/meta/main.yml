@@ -1,0 +1,4 @@
+# roles/myapp/meta/main.yml
+---
+#dependencies:
+#  - role: pre

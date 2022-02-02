@@ -1,0 +1,45 @@
+---
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+
+- name: Upgrade
+  apt:
+    upgrade: yes
+
+- name: Install {{ docker_requarements }}
+  package:
+    name: '{{ item }}'
+    state: present
+  with_items: '{{ docker_requarements }}'
+
+- name: Add GPG key
+  shell: 'curl -fsSL {{ docker_gpg_key_url }} | sudo apt-key add -'
+
+- name: add repo
+  apt_repository:
+    repo: '{{ docker_ubuntu_repo }}'
+    state: present
+
+- name: Run the equivalent of apt-get update as a separate step
+  apt:
+    update_cache: yes
+
+- name: TEST repo
+  shell: 'apt-cache policy docker-ce'
+  register: test_repo
+
+- name: DEBUG
+  debug: 
+    var: test_repo
+
+- name: Install docker-ce
+  package:
+    name: docker-ce
+    state: present
+
+- name: Make sure a service is running
+  systemd:
+    state: started
+    name: docker
+

@@ -1,7 +1,7 @@
 ---
-- hosts: localhost
+- hosts: web1
   tasks:
-  - name: Run tasks/other.yaml instead of 'main'
+  - name: Run tasks
     include_role:
-      name: clo
-      tasks_from: stopstart
+      name: postgres
+#      tasks_from: stopstart
