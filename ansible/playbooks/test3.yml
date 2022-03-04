@@ -1,12 +1,19 @@
 ---
 - name: Install
-  hosts: python-app
+  hosts: web
   #become: yes
   gather_facts: yes
   tasks:
-  - name: nginx-docker
+  - name: ping
+    ping:
+
+  - name: hello
     debug:
       msg: 'Hello'
+
+  - name: apt
+    apt:
+      name: 'nginx'
   # - name: Get OS type
   #   debug:
   #     var: ansible_facts.distribution
