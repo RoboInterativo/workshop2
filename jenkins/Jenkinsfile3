@@ -31,17 +31,26 @@ pipeline {
               // relativeTargetDir: 'ci/']], gitTool: 'Default',
               // submoduleCfg: [],
               // userRemoteConfigs: [[credentialsId: git_cred,    url: git_url]]])
-              sh 'pwd && ls -li'
 
-                    withCredentials([string(credentialsId: 'ssh_default_password', variable: 'ssh_default_password')]) {
-                dir ('ansible') {
-                  sh 'echo ${clo}>tok '
-                  ansiblePlaybook extras: "-vv --extra-vars \"server_id=${SERVER_ID }work_dir=${WORKSPACE} token=${clo} ssh_pass=${ssh_default_password} inventory_dir=\"inventories/dev/\"\" ",
-                  installation: 'ansible29',
-                  inventory: "inventories/dev/inventory",
-                  playbook: "playbooks/test3.yml"
-                }
+              sh 'pwd && ls -li'
+              withCredentials([sshUserPrivateKey(credentialsId: 'ssh_for_server',
+                                               keyFileVariable: 'JENKINS_PRIVATE_KEY', passphraseVariable: 'PASSPHRASE',
+                                               usernameVariable: 'USERNAME')]) {
+             //JENKINS_PRIVATE_KEY -переменная содержит путь к файлу приватного ключа
+             //USERNAME -имя пользователя ssh
+             //ниже приведен запуск плейбука с использованием ключа ssh для доступа к серверам
+               dir ('ansible') {
+             ansiblePlaybook extras: "--private-key ${JENKINS_PRIVATE_KEY} -vv -u root --extra-vars \" inventory_dir=\"inventories/dev/\"\" ",
+                                      installation: 'ansible29',
+                                      inventory: "inventories/dev/inventory",
+                                      playbook: "playbooks/test3.yml"
+
               }
+            }
+
+
+
+
                 //telegramSend 'Hello World'
 
 
