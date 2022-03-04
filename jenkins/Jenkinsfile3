@@ -41,7 +41,7 @@ pipeline {
                   inventory: "inventories/dev/inventory",
                   playbook: "playbooks/test6.yml"
                 }
-                telegramSend 'Hello World'
+                //telegramSend 'Hello World'
 
               }
             }}
