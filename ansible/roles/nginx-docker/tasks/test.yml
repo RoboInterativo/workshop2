@@ -1,0 +1,30 @@
+---
+#- name: Generate multiple hostnames
+#  ansible.builtin.debug:
+#    msg: "{{ ['foo', 'bar'] | product(['com']) | map('join', '.') | join(',') }}"
+- name: copy
+  debug:
+      msg: "{{ (params[2].site |csplit('.',1) )[1] }}/fullchain.pem "
+
+#- name: Generate multiple hostnames
+#  ansible.builtin.debug:
+#    msg: "{{ ['com'] | ['foo', 'bar']  | map('join', '.') | join(',') }}"
+
+#- name: TEST with json_query
+#  debug:
+#    msg: "{{ ' mkdir /etc/letsencrypt/live/' ||params |  map(attribute='site') | list }}"
+
+#  vars:
+#    my_query: "[?sub==False]"
+#  debug:
+#    msg: "{{ params | json_query(my_query) |to_json}}"
+
+
+
+#- name: copy
+#  debug:
+#    msg: '/etc/letsencrypt/live/{{ item[0].site }}/{{ item[1] }}'
+#  with_nested:111
+#    - "{{ params }}"
+#    - [ 'fullchain.pem', 'privkey.pem' ]
+#  when: item[0].sub == False

@@ -1,0 +1,10 @@
+---
+- name: Finer container restart/update control
+  docker_container:
+    name: "{{ containers['nginx'].name }}"
+    image: nginx
+    hostname: "{{ containers['nginx'].hostname }}"
+    networks: "{{containers['nginx'].networks }}"
+    ports: "{{containers['nginx'].ports  }}"
+    mounts: "{{ containers['nginx'].mounts }}"
+    state: started

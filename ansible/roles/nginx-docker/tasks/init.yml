@@ -1,0 +1,4 @@
+...
+- name: Install bottle python package
+  pip:
+    name: docker-py

@@ -1,0 +1,52 @@
+---
+- name: Clear
+  file:
+    path: '{{ nginx_docker_workdir }}'
+    state: absent
+  
+- name: create directory
+  file:
+    path: '{{ nginx_docker_workdir }}/nginx/files/{{ item.site }}'
+    state: directory
+  with_items: '{{ params }}'
+  when: item.sub == False
+
+- name: copy
+  copy:
+    src: '/etc/letsencrypt/live/{{ item[0].site }}/{{ item[1] }}'
+    dest: '{{ nginx_docker_workdir }}/nginx/files/{{ item[0].site }}'
+    remote_src: yes
+  with_nested:
+    - "{{ params }}"
+    - [ 'fullchain.pem', 'privkey.pem' ]
+  when: item[0].sub == False
+  
+- name: copy2
+  copy:
+    src: '/etc/letsencrypt/{{ item }}'
+    dest: '{{ nginx_docker_workdir }}/nginx/files'
+    remote_src: yes
+  with_items:
+    - options-ssl-nginx.conf
+    - ssl-dhparams.pem 
+
+
+  
+- name: Create Dockerfile
+  template:
+     src: Dockerfile
+     dest: '{{ nginx_docker_workdir}}/nginx/Dockerfile'
+      
+- name: Create site.conf
+  template:
+     src: site.conf
+     dest: '{{ nginx_docker_workdir}}/nginx/files/site.conf'  
+
+
+- name: Build an image and push it to a private repo
+  docker_image:
+    name: nginx
+    build:
+      path: '{{ nginx_docker_workdir }}/nginx/'
+    force_source: yes
+    source: build

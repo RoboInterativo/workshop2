@@ -1,0 +1,13 @@
+---
+- name: Install 
+  hosts: robo
+  #become: yes
+  gather_facts: yes
+  tasks:
+  - include_role:
+        name: nginx-docker
+        tasks_from: build
+#  - include_role:
+#        name: nginx-docker
+#        tasks_from: run
+
