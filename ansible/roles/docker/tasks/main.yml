@@ -3,9 +3,9 @@
   apt:
     update_cache: yes
 
-- name: Upgrade
-  apt:
-    upgrade: yes
+#- name: Upgrade
+#  apt:
+#    upgrade: yes#
 
 - name: Install {{ docker_requarements }}
   package:

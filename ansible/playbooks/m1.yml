@@ -1,62 +1,13 @@
 
 ---
-- hosts: alll
-  vars:
-    - devops_password: 'abcddefsfdfdfdfdfdfdfdfdfdfd'
+- hosts: web
   gather_facts: no
-  remote_user: ubuntu
-  become: true
   tasks:
   - name: Run tasks/other.yaml instead of 'main'
     debug:
 
-  - name: Add a new user named devops
-    user:
-      name: devops_1
-      shell: /bin/bash
-      password: "{{ devops_password }}"
+  - name: "RUN task"
+    include_role:
+      name: docker
+      tasks_from: main
 
-
-  - name: Add devops user toкопия
-    sudoers:
-      dest: "/etc/sudoers.d/devops"
-      content: "devops ALL=(ALL) NOPASSWD: ALL"
-
-
-
-- name: >-
-    Allow the alice user to run sudo /bin/systemctl restart my-service or
-    sudo /bin/systemctl reload my-service, but a password is required
-  community.general.sudoers:
-    name: devops
-    user: deobops
-    commands: ALL
-    nopassword: true
-
-  - name: Deploy SSH Key
-      authorized_key: user=devops_1
-      key="{{ lookup('file', '/home/devops_1/.ssh/id_rsa.pub') }}"
-      state=present
-
-  - name: Отключить аутентификацию паролем
-    lineinfile:
-      dest=/etc/ssh/sshd_config
-      regexp='^PasswordAuthentication'
-      line="PasswordAuthentication no"
-      state=present
-      backup=yes
-
-  - name: Отключить корневой логин
-    lineinfile:
-     dest=/etc/ssh/sshd_config
-     regexp='^PermitRootLogin'
-     line= "PermitRootLoginno"
-     state=present
-     backup=yes
-    notify:
-     - restart ssh
-    handlers:
-     - name: restart ssh
-     service:
-     name=sshd
-   state=restarted

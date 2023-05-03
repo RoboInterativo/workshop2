@@ -1,0 +1,35 @@
+services:
+  mailserver:
+    image: mailserver/docker-mailserver:latest
+
+#ghcr.io/docker-mailserver/docker-mailserver:latest
+    container_name: mailserver
+    # Provide the FQDN of your mail server here (Your DNS MX record should point to this value)
+    hostname: test
+    domainname: robointerativo.ru
+    ports:
+      - "25:25"
+      - "465:465"
+      - "587:587"
+      - "993:993"
+    volumes:
+      - ./docker-data/dms/mail-data/:/var/mail/
+      - ./docker-data/dms/mail-state/:/var/mail-state/
+      - ./docker-data/dms/mail-logs/:/var/log/mail/
+      - ./docker-data/dms/config/:/tmp/docker-mailserver/
+      - /etc/localtime:/etc/localtime:ro
+      - ./docker-data/certbot/certs/:/etc/letsencrypt
+    environment:
+      - ENABLE_RSPAMD=1
+      - ENABLE_CLAMAV=1
+      - ENABLE_FAIL2BAN=1
+      - SSL_TYPE=letsencrypt
+      - PERMIT_DOCKER=network
+      - SPOOF_PROTECTION=1
+#      - DOMAINNAME=robointerativo.ru#
+#      - HOSTNAME=test
+#      - OVERRIDE_HOSTNAME
+
+    cap_add:
+      - NET_ADMIN # For Fail2Ban to work
+    restart: always

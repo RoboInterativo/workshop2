@@ -1,0 +1,241 @@
+.
+├── 1
+├── docker-compose.yml
+└── docker-data
+    └── dms
+        ├── config
+        │   ├── dovecot-quotas.cf
+        │   ├── opendkim
+        │   │   ├── KeyTable
+        │   │   ├── SigningTable
+        │   │   ├── TrustedHosts
+        │   │   └── keys
+        │   │       ├── example.com
+        │   │       │   ├── mail.private
+        │   │       │   └── mail.txt
+        │   │       └── test.robointerativo.ru
+        │   │           ├── mail.private
+        │   │           └── mail.txt
+        │   ├── postfix-accounts.cf
+        │   └── postfix-virtual.cf
+        ├── mail-data
+        │   ├── amavis
+        │   ├── example.com
+        │   │   ├── admin
+        │   │   │   └── dovecot.list.index.log
+        │   │   └── info
+        │   │       └── dovecot.list.index.log
+        │   └── test.robointerativo.ru
+        │       └── admin
+        │           └── dovecot.list.index.log
+        ├── mail-logs
+        │   ├── clamav.log
+        │   ├── freshclam.log
+        │   ├── mail.info
+        │   ├── mail.log
+        │   └── mail.warn
+        └── mail-state
+            ├── lib-amavis
+            │   ├── amavisd.sock
+            │   ├── db
+            │   │   ├── __db.001
+            │   │   ├── __db.002
+            │   │   ├── __db.003
+            │   │   ├── nanny.db
+            │   │   └── snmp.db
+            │   ├── tmp
+            │   └── virusmails
+            ├── lib-clamav
+            │   ├── bytecode.cvd
+            │   ├── daily.cvd
+            │   └── main.cvd
+            ├── lib-dovecot
+            │   └── instances
+            ├── lib-fail2ban
+            │   └── fail2ban.sqlite3
+            ├── lib-logrotate
+            ├── lib-postfix
+            │   ├── master.lock
+            │   └── postscreen_cache.db
+            ├── lib-redis
+            │   └── dms-dump.rdb
+            ├── lib-rspamd
+            │   ├── 01a567f34f85af2980d3357ec2fb69bb254810bd54b4c3f7013205d4995e33dc.hsmp
+            │   ├── 01a567f34f85af2980d3357ec2fb69bb254810bd54b4c3f7013205d4995e33dc.hsmp.unser
+            │   ├── 02e0551e2432fd22dc88481e6fc7ad401a8d623e7853b28b1e43aecd2fe83827.hs
+            │   ├── 02e0551e2432fd22dc88481e6fc7ad401a8d623e7853b28b1e43aecd2fe83827.hs.unser
+            │   ├── 0402a5c3bc277ffca466995cb8420ad931d15f4ac592973a00292c88dabf3467.hsmc
+            │   ├── 0402a5c3bc277ffca466995cb8420ad931d15f4ac592973a00292c88dabf3467.hsmc.unser
+            │   ├── 081413939c347abb3d02c42db484d4dd9c74d0bc206edb7e6dd0a193d4af5feb.hs
+            │   ├── 081413939c347abb3d02c42db484d4dd9c74d0bc206edb7e6dd0a193d4af5feb.hs.unser
+            │   ├── 0918f485fb4c94016178beca1edae420e002ebd98241542953b55891c7b31f51.hsmc
+            │   ├── 0918f485fb4c94016178beca1edae420e002ebd98241542953b55891c7b31f51.hsmc.unser
+            │   ├── 110ec84de81cc98813b71d34d42dedbc199bd687.map
+            │   ├── 115c5926782e76b19cd721d078b63b5ea3201841dedd89241ceac6cc6a6033c9.hs
+            │   ├── 115c5926782e76b19cd721d078b63b5ea3201841dedd89241ceac6cc6a6033c9.hs.unser
+            │   ├── 11780fa08ba7dcf89a2faaf7f11726521458901a666c747ecd4794b2d2ba830e.hsmp
+            │   ├── 11780fa08ba7dcf89a2faaf7f11726521458901a666c747ecd4794b2d2ba830e.hsmp.unser
+            │   ├── 1257f5d94f28ce47c18b3f5b1343b0ad4ed7cfb30ed3886db137e86403e5d7f9.hs
+            │   ├── 1257f5d94f28ce47c18b3f5b1343b0ad4ed7cfb30ed3886db137e86403e5d7f9.hs.unser
+            │   ├── 15e7692f3d098a1ba219b5420f379955c264784d5b3e147c8711ee4166e58c9e.hs
+            │   ├── 15e7692f3d098a1ba219b5420f379955c264784d5b3e147c8711ee4166e58c9e.hs.unser
+            │   ├── 170b85001145066b17dcce693af99bf6eda82d02e5172050ed3206bb5650402b.hs
+            │   ├── 170b85001145066b17dcce693af99bf6eda82d02e5172050ed3206bb5650402b.hs.unser
+            │   ├── 1cc57bd81ae2de80424f9687233349f1b2804026e32335a47273c07c1e85ac7a.hs
+            │   ├── 1cc57bd81ae2de80424f9687233349f1b2804026e32335a47273c07c1e85ac7a.hs.unser
+            │   ├── 2368c73b937d98513ed72c4b04f4247bda43fdb5.map
+            │   ├── 2cd1cabbc23cd8b210b43a460a5bfea296da5974dd275464cc96a69c2dc78d46.hsmp
+            │   ├── 2cd1cabbc23cd8b210b43a460a5bfea296da5974dd275464cc96a69c2dc78d46.hsmp.unser
+            │   ├── 2e2351cf44973fed567f5344f22522e7c35e340e0a68c8503831fc47bb23ff51.hs
+            │   ├── 2e2351cf44973fed567f5344f22522e7c35e340e0a68c8503831fc47bb23ff51.hs.unser
+            │   ├── 2e2c9e8043d0a72f8bff5174e2c371a5b5307f5e173b3aadf7e19c0aded708b6.hs
+            │   ├── 2e2c9e8043d0a72f8bff5174e2c371a5b5307f5e173b3aadf7e19c0aded708b6.hs.unser
+            │   ├── 2e66b2415ec9b99aaa155761c211e51def12016e.map
+            │   ├── 3034a0483753f4fd9b1d586eda8b5b7eb0f8352dbdb2fbccd5114fcdecb80cfe.hsmc
+            │   ├── 3034a0483753f4fd9b1d586eda8b5b7eb0f8352dbdb2fbccd5114fcdecb80cfe.hsmc.unser
+            │   ├── 38dbeb91b8d8b58a43107fc6512bd654c8c1a97669e73b7579194650f0433695.hsmc
+            │   ├── 38dbeb91b8d8b58a43107fc6512bd654c8c1a97669e73b7579194650f0433695.hsmc.unser
+            │   ├── 3b1eab0b21b32c970b8fae4a9010a539879368e3.map
+            │   ├── 40028fb0fe8285448b6c89fb76472245cd30f7d4653ab1340382373a326cc5ea.hs
+            │   ├── 40028fb0fe8285448b6c89fb76472245cd30f7d4653ab1340382373a326cc5ea.hs.unser
+            │   ├── 42f6c6e302f069e7f381013201e4aecddc878c429cdcae9deb0b1b2ed37dfadf.hs
+            │   ├── 42f6c6e302f069e7f381013201e4aecddc878c429cdcae9deb0b1b2ed37dfadf.hs.unser
+            │   ├── 43c45f14379fd7770be5af3aa3de6bda031633a6561379972d7084065b023734.hs
+            │   ├── 43c45f14379fd7770be5af3aa3de6bda031633a6561379972d7084065b023734.hs.unser
+            │   ├── 47600b382edfae6df516eeffb36ae5d99297cba95b669c1a419755fdb2f614c8.hsmp
+            │   ├── 47600b382edfae6df516eeffb36ae5d99297cba95b669c1a419755fdb2f614c8.hsmp.unser
+            │   ├── 4a1a0daf184c8e64d8770f16aa4596db594aa2b0be24815c91438b9598fd9297.hs
+            │   ├── 4a1a0daf184c8e64d8770f16aa4596db594aa2b0be24815c91438b9598fd9297.hs.unser
+            │   ├── 4acabbe6a101bb0fd58afcdae8b504e468fb2c7e5780cfea672124b07c677151.hs
+            │   ├── 4acabbe6a101bb0fd58afcdae8b504e468fb2c7e5780cfea672124b07c677151.hs.unser
+            │   ├── 4b543de32ccdd4ea68f98a5b4474d21d51103af378185661c670d5a8ccd800f7.hs
+            │   ├── 4b543de32ccdd4ea68f98a5b4474d21d51103af378185661c670d5a8ccd800f7.hs.unser
+            │   ├── 554ecb887b51cb9279783b60ceb959300f915d7eccfd194f547dfe5a5b18813f.hs
+            │   ├── 554ecb887b51cb9279783b60ceb959300f915d7eccfd194f547dfe5a5b18813f.hs.unser
+            │   ├── 5d48707d80baf9cb65d6696c8f1e38c9aa9d688a9a22bd43b1440c59af65aeb7.hs
+            │   ├── 5d48707d80baf9cb65d6696c8f1e38c9aa9d688a9a22bd43b1440c59af65aeb7.hs.unser
+            │   ├── 6340727c2e5df49139fe414fe5444744128acb1fd413f9c0a9205d5cf19affad.hsmp
+            │   ├── 6340727c2e5df49139fe414fe5444744128acb1fd413f9c0a9205d5cf19affad.hsmp.unser
+            │   ├── 65b4e39783c10c8ed89dbec4983259f22418f34d.map
+            │   ├── 680cf36e64ff912584970d3232db71124f7b9f5912422033b584c024674427d9.hs
+            │   ├── 680cf36e64ff912584970d3232db71124f7b9f5912422033b584c024674427d9.hs.unser
+            │   ├── 6c39a257efc03344e74f06a6c7d0f49a2e1614ad6e14fde3cdeacb46f71e0968.hs
+            │   ├── 6c39a257efc03344e74f06a6c7d0f49a2e1614ad6e14fde3cdeacb46f71e0968.hs.unser
+            │   ├── 78a70f9659ec099fb8b9e0a7e858bd29a92cfa41b5a49f7e69d1dcc442345b22.hs
+            │   ├── 78a70f9659ec099fb8b9e0a7e858bd29a92cfa41b5a49f7e69d1dcc442345b22.hs.unser
+            │   ├── 79d095fb7b86c2eae4eec381ae4403113779e9b644357ed206265ef30909926c.hs
+            │   ├── 79d095fb7b86c2eae4eec381ae4403113779e9b644357ed206265ef30909926c.hs.unser
+            │   ├── 7f1b1fd542ff8c866caa36da68323b56e091d3202095a6c62d659cb7ef77eeea.hs
+            │   ├── 7f1b1fd542ff8c866caa36da68323b56e091d3202095a6c62d659cb7ef77eeea.hs.unser
+            │   ├── 81191442af91ec44debbdb48040038ed6949d2a4c43ef8884efa9c9b3abb09af.hs
+            │   ├── 81191442af91ec44debbdb48040038ed6949d2a4c43ef8884efa9c9b3abb09af.hs.unser
+            │   ├── 82d88911622675d8ef3215a41ed32c3b63dd632eb60365a2aa310521c0e761ec.hs
+            │   ├── 82d88911622675d8ef3215a41ed32c3b63dd632eb60365a2aa310521c0e761ec.hs.unser
+            │   ├── 83aa221b3e6f3cdb87a7729df64378ce756f3ebf42b5625c723be6c05600b9f7.hs
+            │   ├── 83aa221b3e6f3cdb87a7729df64378ce756f3ebf42b5625c723be6c05600b9f7.hs.unser
+            │   ├── 84ec6c7bf207ebd4ee37c24309de84058004f4eb804e05f683fd798356dba32b.hs
+            │   ├── 84ec6c7bf207ebd4ee37c24309de84058004f4eb804e05f683fd798356dba32b.hs.unser
+            │   ├── 877aa38dd77ed707d20b2f77d46b905b69a6295a.map
+            │   ├── 8fe64ecd161a46f91a78ece93609cb863f9f42f2.map
+            │   ├── 9382b0aa6223bb442970eacbdbb7d3544e31212f73609c1b8829aca2e5d5d169.hs
+            │   ├── 9382b0aa6223bb442970eacbdbb7d3544e31212f73609c1b8829aca2e5d5d169.hs.unser
+            │   ├── 9d8a2e1397b90503bcebbb283985ebc0ce0c2630db5e4bbacd9bc67c25de7345.hs
+            │   ├── 9d8a2e1397b90503bcebbb283985ebc0ce0c2630db5e4bbacd9bc67c25de7345.hs.unser
+            │   ├── a3795e955554d4814664c3d1e8ba66cd0eb95a1c0749242cf663e279851be197.hs
+            │   ├── a3795e955554d4814664c3d1e8ba66cd0eb95a1c0749242cf663e279851be197.hs.unser
+            │   ├── ab477e627ae492907cbaf63c28a333100379dffc13900ca0414c323e12be888e.hs
+            │   ├── ab477e627ae492907cbaf63c28a333100379dffc13900ca0414c323e12be888e.hs.unser
+            │   ├── aea5ae1f60490bd68214c88a26bebd94e11a5bc7e8ee7f35185a44da8e991465.hs
+            │   ├── aea5ae1f60490bd68214c88a26bebd94e11a5bc7e8ee7f35185a44da8e991465.hs.unser
+            │   ├── af5005db03a68c3512ae14146dd309ad1f66b8ca68877a96fdd1e02192184e93.hs
+            │   ├── af5005db03a68c3512ae14146dd309ad1f66b8ca68877a96fdd1e02192184e93.hs.unser
+            │   ├── b3a0df5adcbfce0d3bfd24cdc9806f71c357e94798594f642d7cca96b416dec4.hs
+            │   ├── b3a0df5adcbfce0d3bfd24cdc9806f71c357e94798594f642d7cca96b416dec4.hs.unser
+            │   ├── b6334b148bfbb6edfe56e5b0b38f964d96aedd79eb7a1602b46a3ea62afe36cf.hs
+            │   ├── b6334b148bfbb6edfe56e5b0b38f964d96aedd79eb7a1602b46a3ea62afe36cf.hs.unser
+            │   ├── b822457bc3950ecb5d44169eb4b2697ddb62dd90dbe799d93242695be3693da2.hsmc
+            │   ├── b822457bc3950ecb5d44169eb4b2697ddb62dd90dbe799d93242695be3693da2.hsmc.unser
+            │   ├── c077fe0a95e2b8cab4185480caf71f16a5bb81fdcc67f95e08caa8ac56cf09c4.hs
+            │   ├── c077fe0a95e2b8cab4185480caf71f16a5bb81fdcc67f95e08caa8ac56cf09c4.hs.unser
+            │   ├── c279fae68b61d691d1e694d39a5c9e81d6b282d270cd51ec371a8ba75875406e.hs
+            │   ├── c279fae68b61d691d1e694d39a5c9e81d6b282d270cd51ec371a8ba75875406e.hs.unser
+            │   ├── c3c5c4bf2d87a694ad730b5afccb6611f2874bcf77fbfc95f36ab8852421e537.hsmc
+            │   ├── c3c5c4bf2d87a694ad730b5afccb6611f2874bcf77fbfc95f36ab8852421e537.hsmc.unser
+            │   ├── c70a8046d61074db82d8db62ac84f6b029b66b99f32375360ad85e4609c99a77.hs
+            │   ├── c70a8046d61074db82d8db62ac84f6b029b66b99f32375360ad85e4609c99a77.hs.unser
+            │   ├── cb5a8189726ac3a8880e1c44ed6220c6d794521b.map
+            │   ├── cc98c8f9754d89bc454f907220d79c5ab41f0adda60b24f27a1d65c1692cb716.hs
+            │   ├── cc98c8f9754d89bc454f907220d79c5ab41f0adda60b24f27a1d65c1692cb716.hs.unser
+            │   ├── ce1c5716d7b96b9f7288c7b6b4fd67dc7ff5592c5b735b32a0231c31b6bbbcfa.hs
+            │   ├── ce1c5716d7b96b9f7288c7b6b4fd67dc7ff5592c5b735b32a0231c31b6bbbcfa.hs.unser
+            │   ├── d4c3cd58a622987b49e894468706aeb2578d427a7a1510b632609f0edd6d9aae.hs
+            │   ├── d4c3cd58a622987b49e894468706aeb2578d427a7a1510b632609f0edd6d9aae.hs.unser
+            │   ├── d9f3974c024ef57b6cb47fa7bf48a96b90d67faba6f6fd98a18619c5e2421495.hs
+            │   ├── d9f3974c024ef57b6cb47fa7bf48a96b90d67faba6f6fd98a18619c5e2421495.hs.unser
+            │   ├── dd7321d1b33a4644ffe68a695a4a3dcd0a54502aa4e08831aa6fff826e088e5b.hs
+            │   ├── dd7321d1b33a4644ffe68a695a4a3dcd0a54502aa4e08831aa6fff826e088e5b.hs.unser
+            │   ├── e332112e8ec04f88ef1c55265e1f3eb9b59e6f9bf4f14a3e6233bad74d914070.hs
+            │   ├── e332112e8ec04f88ef1c55265e1f3eb9b59e6f9bf4f14a3e6233bad74d914070.hs.unser
+            │   ├── e62c1a85985a5542c720856600da4bdfd23ee401d176fcbe0e16da0241605496.hs
+            │   ├── e62c1a85985a5542c720856600da4bdfd23ee401d176fcbe0e16da0241605496.hs.unser
+            │   ├── ea942f35f2c82e84bdb7b8ceb34537f7dbe986eb.map
+            │   ├── ef49f70548f76f1fae9ab08760695f624c5b3ff1a70a9dad98854b8446669c8f.hsmp
+            │   ├── ef49f70548f76f1fae9ab08760695f624c5b3ff1a70a9dad98854b8446669c8f.hsmp.unser
+            │   ├── f262fef7723e79046fb0e41286e1025c3ea785398e697466ebda245a8ba4978a.hs
+            │   ├── f262fef7723e79046fb0e41286e1025c3ea785398e697466ebda245a8ba4978a.hs.unser
+            │   ├── f3933e67d5f9574a9eaf78cd0a8e99140ecc502e.map
+            │   ├── fc477a884e8e90138613d4a9bc722ec796f469359a94f27fb081bd3050e3639e.hs
+            │   ├── fc477a884e8e90138613d4a9bc722ec796f469359a94f27fb081bd3050e3639e.hs.unser
+            │   ├── rspamd.rrd
+            │   ├── rspamd.sock
+            │   └── stats.ucl
+            └── spool-postfix
+                ├── active
+                ├── bounce
+                ├── corrupt
+                ├── defer
+                ├── deferred
+                ├── flush
+                ├── hold
+                ├── incoming
+                ├── maildrop
+                ├── pid
+                │   ├── inet.submission
+                │   ├── master.pid
+                │   └── pass.smtpd
+                ├── private
+                │   ├── anvil
+                │   ├── bounce
+                │   ├── defer
+                │   ├── discard
+                │   ├── dnsblog
+                │   ├── error
+                │   ├── lmtp
+                │   ├── local
+                │   ├── policyd-spf
+                │   ├── proxymap
+                │   ├── proxywrite
+                │   ├── relay
+                │   ├── retry
+                │   ├── rewrite
+                │   ├── scache
+                │   ├── smtp
+                │   ├── smtp-amavis
+                │   ├── smtpd
+                │   ├── tlsmgr
+                │   ├── tlsproxy
+                │   ├── trace
+                │   ├── verify
+                │   └── virtual
+                ├── public
+                │   ├── cleanup
+                │   ├── flush
+                │   ├── pickup
+                │   ├── postlog
+                │   ├── qmgr
+                │   ├── sender-cleanup
+                │   └── showq
+                ├── saved
+                └── trace
+
+41 directories, 197 files
