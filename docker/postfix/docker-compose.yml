@@ -1,0 +1,22 @@
+services:
+  mailserver:
+    image: mailserver/docker-mailserver:latest
+
+#ghcr.io/docker-mailserver/docker-mailserver:latest
+    container_name: mailserver
+    # Provide the FQDN of your mail server here (Your DNS MX record should point to this value)
+    #hostname: test
+    #domainname: robointerativo.ru
+    ports:
+      - "25:25"
+      - "465:465"
+      - "587:587"
+      - "993:993"
+    volumes:
+#      - ./data/dms/mail-data/:/var/mail/
+#      - ./data/dms/mail-state/:/var/mail-state/
+#      - ./data/dms/mail-logs/:/var/log/mail/
+#      - ./data/dms/config/:/tmp/docker-mailserver/
+#      - /etc/localtime:/etc/localtime:ro
+#      - ./docker-data/certbot/certs/:/etc/letsencrypt
+    restart: always
