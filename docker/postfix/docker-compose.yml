@@ -1,22 +1,53 @@
 services:
-  mailserver:
-    image: mailserver/docker-mailserver:latest
+  dovecot:
+    container_name: dovecot
+    # Provide the FQDN of your mail server here (Your DNS MX record should point to this value)
+    #hostname: test
+    #domainname: robointerativo.ru
+    # environment:
+    #   - POSTFIX_RAW_CONFIG_SMTPD_USE_TLS:no
+    image: dovecot/dovecot
+    ports:
 
+      - "110:110"
+      - "143:143"
+      - "587:587"
+      - "993:993"
+      - "995:995"
+      - "24:24"
+      - "4190:4190"
+
+    # volumes:
+    #   - ./data/dovecot:/etc/dovecot
+    #   - ./data/mail:/srv/mail
+
+  mailserver:
+    #image: mailserver/docker-mailserver:latest
+    image: marvambass/versatile-postfix
 #ghcr.io/docker-mailserver/docker-mailserver:latest
     container_name: mailserver
     # Provide the FQDN of your mail server here (Your DNS MX record should point to this value)
     #hostname: test
     #domainname: robointerativo.ru
+    environment:
+      - POSTFIX_RAW_CONFIG_SMTPD_USE_TLS:no
     ports:
       - "25:25"
-      - "465:465"
-      - "587:587"
-      - "993:993"
+      # - "465:465"
+      # - "587:587"
+      # - "993:993"
+
+    #ntrypoint: /opt/startup.sh
+
+    command:
+      - example.com
+      - user:password
+      - user2:passowrd
+
     volumes:
-#      - ./data/dms/mail-data/:/var/mail/
-#      - ./data/dms/mail-state/:/var/mail-state/
-#      - ./data/dms/mail-logs/:/var/log/mail/
-#      - ./data/dms/config/:/tmp/docker-mailserver/
-#      - /etc/localtime:/etc/localtime:ro
-#      - ./docker-data/certbot/certs/:/etc/letsencrypt
+     - ./data/postfix:/var/spool/postfix
+     - ./data/log:/var/log
+     - ./data/dkim:/etc/postfix/dkim
+
+
     restart: always

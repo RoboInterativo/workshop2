@@ -1,0 +1,87 @@
+---
+- name: newservers_init
+  hosts: init
+  vars:
+    ansible_port: 22
+  tasks:
+    - name: Run the equivalent of "apt-get update" as a separate step
+      apt:
+        update_cache: yes
+    - name: Update all packages to their latest version
+      apt:
+        name: "*"
+        state: latest
+    - name: Upgrade the OS (apt-get dist-upgrade)
+      apt:
+        upgrade: dist
+    - name: ensure dkms is there
+      apt:
+        name: dkms
+        state: latest
+    - name: ensure wireguard is there
+      apt:
+        name: wireguard
+        state: latest
+    - name: ensure wireguard-dkms is there
+      apt:
+        name: wireguard-dkms
+        state: latest
+    - name: ensure wireguard-tools is there
+      apt:
+        name: wireguard-tools
+        state: latest
+    - name: ensure bind9-dnsutils is there
+      apt:
+        name: bind9-dnsutils
+        state: latest
+    - name: ensure git is there
+      apt:
+        name: git
+        state: latest
+    - name: ensure ipset is there
+      apt:
+        name: ipset
+        state: latest
+    - name: ensure ruby is there
+      apt:
+        name: ruby
+        state: latest
+    - name: ensure htop is there
+      apt:
+        name: htop
+        state: latest
+    - name: ensure software-properties-common is there
+      apt:
+        name: software-properties-common
+        state: latest
+    - name: ensure mc is there
+      apt:
+        name: mc
+        state: latest
+    - name: Ensure a locale exists
+      locale_gen:
+        name: pl_PL.UTF-8
+        state: present
+    - name: Setup alternate SSH port
+      lineinfile:
+        backup: true
+        dest: "/etc/ssh/sshd_config"
+        regexp: "^#Port"
+        line: "Port 39168"
+    - name: Disable IPV6 live
+      command: sysctl -w net.ipv6.conf.all.disable_ipv6=1 -w net.ipv6.conf.default.disable_ipv6=1
+    - name: Create key pair for wireguard
+      shell: cd /etc/wireguard; umask 077; wg genkey | tee privatekey | wg pubkey > publickey
+
+    - name: Modify user root - create a 4096-bit SSH key in /root/.ssh/id_rsa
+      ansible.builtin.user:
+        name: root
+        generate_ssh_key: yes
+        ssh_key_bits: 4096
+        ssh_key_file: .ssh/id_rsa
+
+
+    - name: service ssh
+      service:
+        name: ssh
+        state: restarted
