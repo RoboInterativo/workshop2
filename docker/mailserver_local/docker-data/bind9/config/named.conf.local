@@ -1,0 +1,5 @@
+zone "roboint.com." {
+        type primary;
+        file "/var/lib/bind/db.roboint.com";
+        notify explicit;
+};

@@ -1,0 +1,20 @@
+acl "trusted" {
+        localhost;
+
+};
+options {
+        directory "/var/cache/bind";
+
+        recursion yes;
+        allow-recursion { trusted; };
+
+        listen-on-v4 { any; };
+        allow-transfer { none; };
+
+        forwarders {
+                8.8.8.8;
+                8.8.4.4;
+        };
+
+
+};

@@ -1,0 +1,31 @@
+services:
+  bind9:
+    image: internetsystemsconsortium/bind9:9.16
+      #mailserver/docker-mailserver:latest
+
+#ghcr.io/docker-mailserver/docker-mailserver:latest
+    container_name: bind9
+    # Provide the FQDN of your mail server here (Your DNS MX record should point to this value)
+
+    ports:
+      - "172.17.0.1:53:53/tcp"
+      - "172.17.0.1:53:53/udp"
+      - "127.0.0.1:953:953/tcp"
+
+
+    #command: /bin/bash
+    #entrypoint: /bin/bash
+    # tty: true
+    volumes:
+      - ./docker-data/bind9/config/named.conf.local:/etc/bind/named.conf.local
+      #- ./docker-data/bind9/config/named.conf.options:/etc/bind/named.conf.options
+
+      - ./docker-data/bind9/cache:/var/cache/bind
+      - ./docker-data/bind9/zone/db.roboint.com:/var/lib/bind/db.roboint.com
+      - ./docker-data/bind9/log:/var/log
+    # environment:
+    #   - ENABLE_RSPAMD=1
+    #
+    #   - SPOOF_PROTECTION=1
+
+  #  restart: always
