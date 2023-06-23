@@ -59,5 +59,5 @@ echo "Setting the default route in the network namespaces"
 sudo ip netns exec $NS1 ip route add default via $BRIDGE_IP dev veth11
 sudo ip netns exec $NS2 ip route add default via $BRIDGE_IP dev veth21
 
-echo "Enables IP forwarding on the nod
+echo "Enables IP forwarding on the nod"
 sudo sysctl -w net.ipv4.ip_forward=1

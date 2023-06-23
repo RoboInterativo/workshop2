@@ -1,0 +1,12 @@
+servers:
+  - name: ubuntu1
+    image_name: "Ubuntu 20"
+    cpu: 1
+    ram: 2
+    disk: 10
+
+  - name: ubuntu2
+    image_name: "Ubuntu 20"
+    cpu: 1
+    ram: 2
+    disk: 10
